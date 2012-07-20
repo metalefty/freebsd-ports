@@ -22,6 +22,10 @@ etc/xrdp/rsakeys.ini.sample
 etc/xrdp/sesman.ini.sample
 etc/xrdp/startwm.sh.sample
 etc/xrdp/xrdp.ini.sample
+@exec [ -f %D/etc/xrdp/rsakeys.ini ] || cp -p %D/etc/xrdp/rsakeys.ini.sample %D/etc/xrdp/rsakeys.ini
+@exec [ -f %D/etc/xrdp/sesman.ini ] || cp -p %D/etc/xrdp/sesman.ini.sample %D/etc/xrdp/sesman.ini
+@exec [ -f %D/etc/xrdp/startwm.sh ] || cp -p %D/etc/xrdp/startwm.sh.sample %D/etc/xrdp/startwm.sh
+@exec [ -f %D/etc/xrdp/xrdp.ini ] || cp -p %D/etc/xrdp/xrdp.ini.sample %D/etc/xrdp/xrdp.ini
 etc/xrdp/xrdp.sh
 lib/xrdp/libcommon.a
 lib/xrdp/libcommon.la
