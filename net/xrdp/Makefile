@@ -2,11 +2,12 @@
 # Date created:				2007-02-19
 # Whom:					alepulver
 #
-# $FreeBSD: ports/net/xrdp/Makefile,v 1.16 2012/06/02 18:32:38 culot Exp $
+# $FreeBSD: ports/net/xrdp/Makefile,v 1.17 2012/07/20 20:00:43 swills Exp $
 #
 
 PORTNAME=	xrdp
 PORTVERSION=	0.6.0.20110117
+PORTREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	http://www.club.kyutech.ac.jp/~meta/distfiles/ \
 		http://key2.jp/~meta/distfiles/
@@ -34,16 +35,17 @@ RUN_DEPENDS+=	Xvnc:${PORTSDIR}/net/vnc
 
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 
-OPTIONS=	DEBUG "Build with debugging symbols" off \
-		JP106 "Install Japanese JP106 Keymap" on
+OPTIONS_DEFINE=	DEBUG JP106
+OPTIONS_DEFAULT=	JP106
 
 .include <bsd.port.options.mk>
 
-.if defined(WITH_DEBUG)
+.if ${PORT_OPTIONS:MDEBUG}
 CFLAGS+=	-DXRDP_DEBUG
 .endif
 
-.if defined(WITH_JP106)
+.if ${PORT_OPTIONS:MJP106}
+JP106_DESC=	Install Japanese JP106 keymap
 PATCHFILES+=	patch-instfiles__Makefile.am \
 	patch-instfiles__km-0411.ini \
 	patch-instfiles__km-e0010411.ini \
