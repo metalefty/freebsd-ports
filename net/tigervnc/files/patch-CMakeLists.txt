@@ -1,0 +1,37 @@
+--- CMakeLists.txt.orig	2012-03-10 05:34:29.000000000 +0900
++++ CMakeLists.txt	2012-05-27 23:55:07.000000000 +0900
+@@ -237,6 +237,7 @@
+ endif()
+ 
+ # Check for FLTK
++if(ENABLE_VIEWER)
+ set(FLTK_SKIP_FLUID TRUE)
+ set(FLTK_SKIP_OPENGL TRUE)
+ set(FLTK_SKIP_IMAGES TRUE)
+@@ -315,11 +316,12 @@
+   set(FLTK_LIBRARIES)
+   if(APPLE)
+     set(FLTK_LIBRARIES "-framework Carbon -framework Cocoa -framework ApplicationServices")
+-  elseif(NOT WIN32)
+-    set(FLTK_LIBRARIES "-ldl")
++#  elseif(NOT WIN32)
++#    set(FLTK_LIBRARIES "-ldl")
+   endif()
+   message(STATUS "Using included FLTK library")
+ endif()
++endif()
+ 
+ # Check for GNUTLS library
+ option(ENABLE_GNUTLS "Enable protocol encryption and advanced authentication" ON)
+@@ -409,7 +411,10 @@
+ if(ENABLE_NLS)
+   add_subdirectory(po)
+ endif()
+-add_subdirectory(vncviewer)
++
++if(ENABLE_VIEWER)
++  add_subdirectory(vncviewer)
++endif()
+ 
+ include(cmake/BuildPackages.cmake)
+ 
