@@ -17,12 +17,14 @@ DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:1 \
 		xorg-server-${XORG_VERSION}.tar.bz2:2
 
 MAINTAINER=	bompopo@gmail.com
-COMMENT=	Tigervnc server by xorg
+COMMENT=	TigerVNC is a high-performance, platform-neutral implementation of VNC
 
 USE_PKGCONFIG=	build
 
 BUILD_DEPENDS+=	cmake:${PORTSDIR}/devel/cmake \
-		${LOCALBASE}/lib/libturbojpeg.so:${PORTSDIR}/graphics/libjpeg-turbo
+		${LOCALBASE}/lib/libturbojpeg.so:${PORTSDIR}/graphics/libjpeg-turbo \
+		${LOCALBASE}/share/aclocal/xorg-macros.m4:${PORTSDIR}/devel/xorg-macros
+
 #		pkg-config:${PORTSDIR}/devel/pkg-config \
 #		${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri \
 
