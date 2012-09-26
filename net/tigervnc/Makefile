@@ -10,21 +10,21 @@ PORTVERSION=	1.2.0
 #PORTREVISION=	1
 CATEGORIES=	net x11-servers
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE}:1 \
-		http://xorg.freedesktop.org/releases/individual/xserver/:2
-
-MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:1
+		${MASTER_SITE_XORG}:2
+MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:1 \
+		releases/individual/xserver:2
 DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:1 \
 		xorg-server-${XORG_VERSION}.tar.bz2:2
 
 MAINTAINER=	bompopo@gmail.com
-COMMENT=	tigervnc server by xorg
+COMMENT=	Tigervnc server by xorg
 
 USE_PKGCONFIG=	build
 
-BUILD_DEPENDS+=	cmake:${PORTSDIR}/devel/cmake #\
+BUILD_DEPENDS+=	cmake:${PORTSDIR}/devel/cmake \
+		${LOCALBASE}/lib/libturbojpeg.so:${PORTSDIR}/graphics/libjpeg-turbo
 #		pkg-config:${PORTSDIR}/devel/pkg-config \
 #		${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri \
-#		${LOCALBASE}/lib/libturbojpeg.so:${PORTSDIR}/graphics/libjpeg-turbo
 
 CONFLICTS=	tridiavnc-[0-9]* \
 		tightvnc-[0-9]* \
@@ -41,9 +41,9 @@ OPTIONS=	GNUTLS "GNUTLS support" off \
 CMAKE_ARGS=	-G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PREFIX} -DMAN_DIR=${PREFIX}/man -DUSE_INCLUDED_ZLIB=1
 
 .if defined(WITH_GNUTLS)
-LIB_DEPENDS+=	tasn1.4:${PORTSDIR}/security/libtasn1 \
-		gcrypt.18:${PORTSDIR}/security/libgcrypt \
-		gpg-error.0:${PORTSDIR}/security/libgpg-error
+LIB_DEPENDS+=	tasn:${PORTSDIR}/security/libtasn1 \
+		gcrypt:${PORTSDIR}/security/libgcrypt \
+		gpg-error:${PORTSDIR}/security/libgpg-error
 CONFIGURE_ARGS+=	--enable-glx-tls
 CMAKE_ARGS+=	-DENABLE_GNUTLS=1
 .else
@@ -71,8 +71,8 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 
 .if !defined(WITHOUT_VIEWER)
 CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DFLTK_INCLUDE_DIR=${LOCALBASE}/include -DFLTK_LIBRARIES="-L${LOCALBASE}/lib -lfltk -lfltk_forms -lfltk_images"
-LIB_DEPENDS+=	png15.15:${PORTSDIR}/graphics/png \
-		fltk.1:${PORTSDIR}/x11-toolkits/fltk
+LIB_DEPENDS+=	png:${PORTSDIR}/graphics/png \
+		fltk:${PORTSDIR}/x11-toolkits/fltk
 USE_XORG+=	xcursor xfixes xft xinerama
 MAN1+=		vncviewer.1
 PLIST_SUB+=	VIEWER=""
@@ -140,4 +140,3 @@ post-install:
 	@cd ${WRKSRC}/unix/xserver/ && ${SETENV} ${MAKE_ENV} ${GMAKE} ${MAKE_ARGS} install
 
 .include <bsd.port.post.mk>
-
