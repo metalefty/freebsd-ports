@@ -22,11 +22,10 @@ COMMENT=	TigerVNC is a high-performance, platform-neutral implementation of VNC
 USE_PKGCONFIG=	build
 
 BUILD_DEPENDS+=	cmake:${PORTSDIR}/devel/cmake \
+		pkgconf:${PORTSDIR}/devel/pkgconf \
 		${LOCALBASE}/lib/libturbojpeg.so:${PORTSDIR}/graphics/libjpeg-turbo \
-		${LOCALBASE}/share/aclocal/xorg-macros.m4:${PORTSDIR}/devel/xorg-macros
-
-#		pkg-config:${PORTSDIR}/devel/pkg-config \
-#		${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri \
+		${LOCALBASE}/share/aclocal/xorg-macros.m4:${PORTSDIR}/devel/xorg-macros \
+		${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri
 
 CONFLICTS=	tridiavnc-[0-9]* \
 		tightvnc-[0-9]* \
@@ -40,7 +39,7 @@ OPTIONS=	GNUTLS "GNUTLS support" off \
 
 .include <bsd.port.options.mk>
 
-CMAKE_ARGS=	-G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PREFIX} -DMAN_DIR=${PREFIX}/man -DUSE_INCLUDED_ZLIB=1
+CMAKE_ARGS=	-G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PREFIX} -DUSE_INCLUDED_ZLIB=1
 
 .if defined(WITH_GNUTLS)
 LIB_DEPENDS+=	tasn:${PORTSDIR}/security/libtasn1 \
@@ -73,7 +72,7 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 
 .if !defined(WITHOUT_VIEWER)
 CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DFLTK_INCLUDE_DIR=${LOCALBASE}/include -DFLTK_LIBRARIES="-L${LOCALBASE}/lib -lfltk -lfltk_forms -lfltk_images"
-LIB_DEPENDS+=	png:${PORTSDIR}/graphics/png \
+LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png \
 		fltk:${PORTSDIR}/x11-toolkits/fltk
 USE_XORG+=	xcursor xfixes xft xinerama
 MAN1+=		vncviewer.1
@@ -85,7 +84,7 @@ PLIST_SUB+=	VIEWER="@comment "
 MAKE_JOBS_UNSAFE=	yes
 
 USE_GMAKE=	yes
-USE_GL=		yes
+USE_GL=		gl
 USE_AUTOTOOLS+=	autoconf:env \
 		automake:env \
 		libtool:env
