@@ -1,6 +1,6 @@
 # New ports collection makefile for:	tigervnc
 # Date created:				2012-05-27
-# Whom:					bompopo <bompopo@gmail.com>
+# Whom:					Koichiro IWAO <meta+ports@vmeta.jp>
 #
 # $FreeBSD$
 #
@@ -16,7 +16,7 @@ MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:1 \
 DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:1 \
 		xorg-server-${XORG_VERSION}.tar.bz2:2
 
-MAINTAINER=	bompopo@gmail.com
+MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	TigerVNC is a high-performance, platform-neutral implementation of VNC
 
 USE_PKGCONFIG=	build
