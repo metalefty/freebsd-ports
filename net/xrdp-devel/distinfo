@@ -1,5 +1,5 @@
-SHA256 (xrdp/xrdp-0.6.0.20110117cvs.tar.gz) = 06ad5b8afa4841aaa25ef06c7374ae881bd678b8ab5d6230ce0b9f6a463cfa98
-SIZE (xrdp/xrdp-0.6.0.20110117cvs.tar.gz) = 1998298
+SHA256 (xrdp/xrdp-0.7.0.20120918.tar.gz) = 97b447a2634dc151b869beca216116c5ec7cb17cc662c0642861c6226c4dcec9
+SIZE (xrdp/xrdp-0.7.0.20120918.tar.gz) = 6618465
 SHA256 (xrdp/patch-instfiles__Makefile.am) = 92e8a1768b63f508bc5b37cdc5723d1e03875af7fbdf064aa86a6b40b1bd2f07
 SIZE (xrdp/patch-instfiles__Makefile.am) = 710
 SHA256 (xrdp/patch-instfiles__km-0411.ini) = 58bcb7f063db4fcde9230be3013d46226b8af5c0060b7faf00250a51aa7da4fd

@@ -1,9 +1,11 @@
 @stopdaemon xrdp
+bin/xrdp-dis
 bin/xrdp-genkeymap
 bin/xrdp-keygen
 bin/xrdp-sesadmin
 bin/xrdp-sesrun
 bin/xrdp-sestest
+bin/xrdp-xcon
 etc/pam.d/xrdp-sesman
 etc/xrdp/km-0407.ini
 etc/xrdp/km-0409.ini
@@ -52,6 +54,10 @@ lib/xrdp/libxrdp.a
 lib/xrdp/libxrdp.la
 lib/xrdp/libxrdp.so
 lib/xrdp/libxrdp.so.0
+lib/xrdp/libxrdpapi.la
+lib/xrdp/libxrdpapi.so
+lib/xrdp/libxrdpapi.so.0
+lib/xrdp/libxrdpapi.a
 lib/xrdp/libxup.a
 lib/xrdp/libxup.la
 lib/xrdp/libxup.so
@@ -68,5 +74,5 @@ share/xrdp/sans-10.fv1
 share/xrdp/xrdp24b.bmp
 share/xrdp/xrdp256.bmp
 @dirrm share/xrdp
-@dirrm lib/xrdp
+@dirrmtry lib/xrdp
 @dirrmtry etc/xrdp

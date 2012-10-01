@@ -6,12 +6,12 @@
 #
 
 PORTNAME=	xrdp
-PORTVERSION=	0.6.0.20110117
-PORTREVISION=	3
+PORTVERSION=	0.7.0.20120918
 CATEGORIES=	net
 MASTER_SITES=	http://www.club.kyutech.ac.jp/~meta/distfiles/ \
 		http://key2.jp/~meta/distfiles/
-DISTNAME=	${PORTNAME}-${PORTVERSION}cvs
+PKGNAMESUFFIX=	-devel
+#DISTNAME=	${PORTNAME}-${PORTVERSION}
 DIST_SUBDIR?=	${PORTNAME}
 
 PATCH_SITES=	http://www.club.kyutech.ac.jp/~meta/patches/xrdp/0.6.0/ \
@@ -32,6 +32,7 @@ CONFIGURE_ARGS=	--localstatedir=/var
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
 RUN_DEPENDS+=	Xvnc:${PORTSDIR}/net/vnc
+CONFLICTS=	xrdp-[0-9]*
 
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 
