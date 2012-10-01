@@ -31,17 +31,19 @@ USE_RC_SUBR=	xrdp
 CONFIGURE_ARGS=	--localstatedir=/var
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
-RUN_DEPENDS+=	Xvnc:${PORTSDIR}/net/vnc
 
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 
-OPTIONS_DEFINE=	DEBUG JP106
+OPTIONS_DEFINE=	DEBUG FREERDP GATEWAY JP106
 OPTIONS_DEFAULT=	JP106
+FREERDP_DESC=	Build freerdp module (experimental)
+GATEWAY_DESC=	Install xrdp as RDP gateway (no VNC backend)
 JP106_DESC=	Install Japanese JP106 keymap
 
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MDEBUG}
+CONFIGURE_ARGS+=	--enable-xrdpdebug
 CFLAGS+=	-DXRDP_DEBUG
 .endif
 
@@ -54,6 +56,15 @@ PATCHFILES+=	patch-instfiles__Makefile.am \
 PLIST_SUB+=	JP106=""
 .else
 PLIST_SUB+=	JP106="@comment "
+.endif
+
+.if ${PORT_OPTIONS:MFREERDP}
+CONFIGURE_ARGS+=	--enable-freerdp1
+BROKEN=	net/freerdp1 is not available yet
+.endif
+
+.if !${PORT_OPTIONS:MGATEWAY}
+RUN_DEPENDS+=	Xvnc:${PORTSDIR}/net/vnc
 .endif
 
 MAN5=		sesman.ini.5 xrdp.ini.5
