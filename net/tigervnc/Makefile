@@ -9,10 +9,9 @@ PORTNAME=	tigervnc
 PORTVERSION=	1.2.0
 #PORTREVISION=	1
 CATEGORIES=	net x11-servers
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE}:1 \
-		${MASTER_SITE_XORG}:2
-MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:1 \
-		releases/individual/xserver:2
+MASTER_SITES=	SF:1 \
+		XORG/individual/xserver:2
+MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:1
 DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:1 \
 		xorg-server-${XORG_VERSION}.tar.bz2:2
 
@@ -23,7 +22,7 @@ USE_PKGCONFIG=	build
 
 BUILD_DEPENDS+=	cmake:${PORTSDIR}/devel/cmake \
 		pkgconf:${PORTSDIR}/devel/pkgconf \
-		${LOCALBASE}/lib/libturbojpeg.so:${PORTSDIR}/graphics/libjpeg-turbo \
+		${LOCALBASE}/lib/libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		${LOCALBASE}/share/aclocal/xorg-macros.m4:${PORTSDIR}/devel/xorg-macros \
 		${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri
 
@@ -31,17 +30,18 @@ CONFLICTS=	tridiavnc-[0-9]* \
 		tightvnc-[0-9]* \
 		vnc-[0-9]*
 
-OPTIONS=	GNUTLS "GNUTLS support" off \
+OPTIONS=	GNUTLS "GNUTLS support (broken)" off \
 		NLS "native language support" off \
 		OPENSSL_PORT "Use ports openssl" off \
 		PAM "PAM authentication support" off \
-		VIEWER "build vncviewer" off
+		VIEWER "build vncviewer (broken)" off
 
 .include <bsd.port.options.mk>
 
 CMAKE_ARGS=	-G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PREFIX} -DUSE_INCLUDED_ZLIB=1
 
 .if defined(WITH_GNUTLS)
+BROKEN= not available now
 LIB_DEPENDS+=	tasn:${PORTSDIR}/security/libtasn1 \
 		gcrypt:${PORTSDIR}/security/libgcrypt \
 		gpg-error:${PORTSDIR}/security/libgpg-error
@@ -71,6 +71,7 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 .endif
 
 .if !defined(WITHOUT_VIEWER)
+BROKEN=	not available now
 CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DFLTK_INCLUDE_DIR=${LOCALBASE}/include -DFLTK_LIBRARIES="-L${LOCALBASE}/lib -lfltk -lfltk_forms -lfltk_images"
 LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png \
 		fltk:${PORTSDIR}/x11-toolkits/fltk
@@ -85,9 +86,7 @@ MAKE_JOBS_UNSAFE=	yes
 
 USE_GMAKE=	yes
 USE_GL=		gl
-USE_AUTOTOOLS+=	autoconf:env \
-		automake:env \
-		libtool:env
+USE_AUTOTOOLS+=	autoconf:env automake:env libtool:env
 USE_PYTHON=	yes
 USE_LDCONFIG=	yes
 USE_OPENSSL=	yes
@@ -107,13 +106,18 @@ CONFIGURE_ARGS+=	--prefix=${PREFIX} --mandir=${PREFIX}/man/ --docdir=${PREFIX}/s
 		--with-dri-driver-path=${PREFIX}/lib/dri \
 		--disable-selective-werror
 
+.if defined(WITH_NEW_XORG)
+BROKEN=		does not build with new xorg
+XORG_VERSION=	1.10.6
+.else
 XORG_VERSION=	1.7.7
+.endif
 TIGERVNC_XORG_PATCH_VER=	17
 
 USE_XORG+=	bigreqsproto compositeproto damageproto fixesproto fontsproto glproto \
 		inputproto kbproto pixman randrproto renderproto resourceproto \
-		scrnsaverproto videoproto xau xdmcp xkbfile xcmiscproto xextproto \
-		xfont xproto xtrans xtst
+		scrnsaverproto videoproto xau xdmcp xext xkbfile xcmiscproto xextproto \
+		xfont xproto xrandr xtrans xtst
 
 WRKSRC=		${WRKDIR}/tigervnc-${PORTVERSION}/
 
