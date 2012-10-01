@@ -6,12 +6,12 @@
 #
 
 PORTNAME=	xrdp
-PORTVERSION=	0.6.0.20110117
-PORTREVISION=	3
+PORTVERSION=	0.6.0
+#PORTREVISION=	3
+PORTEPOCH=	1
 CATEGORIES=	net
-MASTER_SITES=	http://www.club.kyutech.ac.jp/~meta/distfiles/ \
-		http://key2.jp/~meta/distfiles/
-DISTNAME=	${PORTNAME}-${PORTVERSION}cvs
+MASTER_SITES=	SF/xrdp/xrdp/${PORTVERSION}
+DISTNAME=	${PORTNAME}-v${PORTVERSION}
 DIST_SUBDIR?=	${PORTNAME}
 
 PATCH_SITES=	http://www.club.kyutech.ac.jp/~meta/patches/xrdp/0.6.0/ \
