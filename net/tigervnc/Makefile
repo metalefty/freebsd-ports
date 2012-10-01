@@ -92,7 +92,9 @@ USE_LDCONFIG=	yes
 USE_OPENSSL=	yes
 
 MAKE_ARGS+=	TIGERVNC_SRCDIR=${WRKSRC}
-CONFIGURE_ARGS+=	--prefix=${PREFIX} --mandir=${PREFIX}/man/ --docdir=${PREFIX}/share/doc/${PORTNAME}/ --with-pic --without-dtrace --disable-static --disable-dri \
+CONFIGURE_ARGS+=	--prefix=${PREFIX} --mandir=${PREFIX}/man/ \
+		--docdir=${PREFIX}/share/doc/${PORTNAME}/ --with-pic --without-dtrace \
+		--disable-static --disable-dri \
 		--disable-xinerama --disable-xvfb --disable-xnest --disable-xorg \
 		--disable-dmx --disable-xwin --disable-xephyr --disable-kdrive \
 		--disable-config-dbus --disable-config-hal \
@@ -125,7 +127,6 @@ MAN1+=		vncpasswd.1 \
 		x0vncserver.1 \
 		vncserver.1 \
 		vncconfig.1 \
-		Xserver.1 \
 		Xvnc.1
 
 .include <bsd.port.pre.mk>
