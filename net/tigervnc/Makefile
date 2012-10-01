@@ -113,7 +113,7 @@ TIGERVNC_XORG_PATCH_VER=	17
 USE_XORG+=	bigreqsproto compositeproto damageproto fixesproto fontsproto glproto \
 		inputproto kbproto pixman randrproto renderproto resourceproto \
 		scrnsaverproto videoproto xau xdmcp xkbfile xcmiscproto xextproto \
-		xfont xproto xtrans
+		xfont xproto xtrans xtst
 
 WRKSRC=		${WRKDIR}/tigervnc-${PORTVERSION}/
 
