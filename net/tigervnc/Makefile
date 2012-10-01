@@ -127,6 +127,7 @@ MAN1+=		vncpasswd.1 \
 		x0vncserver.1 \
 		vncserver.1 \
 		vncconfig.1 \
+		Xserver.1 \
 		Xvnc.1
 
 .include <bsd.port.pre.mk>
