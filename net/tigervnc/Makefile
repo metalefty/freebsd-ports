@@ -50,11 +50,10 @@ MAN1+=		vncpasswd.1 \
 		Xvnc.1
 
 OPTIONS_DEFINE=		GNUTLS NLS PAM VIEWER
-OPTIONS_DEFAULT=
-
+OPTIONS_DEFAULT=	VIEWER
 GNUTLS_DESC=		GNUTLS support (broken)
 PAM_DESC=		PAM authentication support
-VIEWER_DESC=		build VNCviewer (broken)
+VIEWER_DESC=		Build vncviewer
 
 .include <bsd.port.options.mk>
 
@@ -87,12 +86,11 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 .endif
 
 .if ${PORT_OPTIONS:MVIEWER}
-BROKEN=	not available now
 CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DFLTK_INCLUDE_DIR=${LOCALBASE}/include \
 		-DFLTK_LIBRARIES="-L${LOCALBASE}/lib \
 		-lfltk -lfltk_forms -lfltk_images"
 LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png \
-		fltk:${PORTSDIR}/x11-toolkits/fltk
+		fltk:${PORTSDIR}/x11-toolkits/fltk2
 USE_XORG+=	xcursor xfixes xft xinerama
 MAN1+=		vncviewer.1
 PLIST_SUB+=	VIEWER=""
