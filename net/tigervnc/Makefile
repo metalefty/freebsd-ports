@@ -49,11 +49,11 @@ MAN1+=		vncpasswd.1 \
 		Xvnc.1
 
 OPTIONS_DEFINE=		GNUTLS NLS PAM VIEWER HPJPG
-OPTIONS_DEFAULT=	VIEWER
-GNUTLS_DESC=		GNUTLS support (broken)
+OPTIONS_DEFAULT=	GNUTLS NLS PAM VIEWER HPJPG
+GNUTLS_DESC=		Build with TLS support
 PAM_DESC=		PAM authentication support
 VIEWER_DESC=		Build vncviewer
-HPJPG_DESC=		Build with High-Performance JPEG Support
+HPJPG_DESC=		Build with High-Performance JPEG support
 
 .include <bsd.port.options.mk>
 
