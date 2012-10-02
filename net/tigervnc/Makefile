@@ -18,7 +18,6 @@ USE_PKGCONFIG=	build
 
 BUILD_DEPENDS+=	cmake:${PORTSDIR}/devel/cmake \
 		pkgconf:${PORTSDIR}/devel/pkgconf \
-		${LOCALBASE}/lib/libjpeg.so:${PORTSDIR}/graphics/jpeg \
 		${LOCALBASE}/share/aclocal/xorg-macros.m4:${PORTSDIR}/devel/xorg-macros \
 		${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri
 
@@ -49,11 +48,12 @@ MAN1+=		vncpasswd.1 \
 		Xserver.1 \
 		Xvnc.1
 
-OPTIONS_DEFINE=		GNUTLS NLS PAM VIEWER
+OPTIONS_DEFINE=		GNUTLS NLS PAM VIEWER HPJPG
 OPTIONS_DEFAULT=	VIEWER
 GNUTLS_DESC=		GNUTLS support (broken)
 PAM_DESC=		PAM authentication support
 VIEWER_DESC=		Build vncviewer
+HPJPG_DESC=		Build with High-Performance JPEG Support
 
 .include <bsd.port.options.mk>
 
@@ -95,6 +95,12 @@ MAN1+=		vncviewer.1
 PLIST_SUB+=	VIEWER=""
 .else
 PLIST_SUB+=	VIEWER="@comment "
+.endif
+
+.if ${PORT_OPTIONS:MHPJPG}
+BUILD_DEPENDS+=	${LOCALBASE}/lib/libturbojpeg.so:${PORTSDIR}/graphics/libjpeg-turbo
+.else
+BUILD_DEPENDS+=	${LOCALBASE}/lib/libjpeg.so:${PORTSDIR}/graphics/jpeg
 .endif
 
 MAKE_ARGS+=	TIGERVNC_SRCDIR=${WRKSRC}
