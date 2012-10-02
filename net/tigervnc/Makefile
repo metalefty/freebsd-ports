@@ -60,8 +60,7 @@ VIEWER_DESC=		Build vncviewer
 CMAKE_ARGS=	-G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PREFIX} -DUSE_INCLUDED_ZLIB=1
 
 .if ${PORT_OPTIONS:MGNUTLS}
-BROKEN=	not available now
-LIB_DEPENDS+=	tasn:${PORTSDIR}/security/libtasn1 \
+LIB_DEPENDS+=	tasn1:${PORTSDIR}/security/libtasn1 \
 		gcrypt:${PORTSDIR}/security/libgcrypt \
 		gpg-error:${PORTSDIR}/security/libgpg-error
 CONFIGURE_ARGS+=	--enable-glx-tls
