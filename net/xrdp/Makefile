@@ -33,9 +33,8 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 
-OPTIONS_DEFINE=	DEBUG FREERDP GATEWAY JP106
+OPTIONS_DEFINE=	DEBUG GATEWAY JP106
 OPTIONS_DEFAULT=	JP106
-FREERDP_DESC=	Build freerdp module (experimental)
 GATEWAY_DESC=	Install xrdp as RDP gateway (no VNC backend)
 JP106_DESC=	Install Japanese JP106 keymap
 
@@ -55,11 +54,6 @@ PATCHFILES+=	patch-instfiles__Makefile.am \
 PLIST_SUB+=	JP106=""
 .else
 PLIST_SUB+=	JP106="@comment "
-.endif
-
-.if ${PORT_OPTIONS:MFREERDP}
-CONFIGURE_ARGS+=	--enable-freerdp
-BROKEN=	does not build with freerdp
 .endif
 
 .if !${PORT_OPTIONS:MGATEWAY}
