@@ -58,8 +58,8 @@ PLIST_SUB+=	JP106="@comment "
 .endif
 
 .if ${PORT_OPTIONS:MFREERDP}
-CONFIGURE_ARGS+=	--enable-freerdp1
-BROKEN=	net/freerdp1 is not available yet
+CONFIGURE_ARGS+=	--enable-freerdp
+BROKEN= does not build with freerdp
 .endif
 
 .if !${PORT_OPTIONS:MGATEWAY}
