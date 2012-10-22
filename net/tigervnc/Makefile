@@ -3,7 +3,6 @@
 
 PORTNAME=	tigervnc
 PORTVERSION=	1.2.0
-#PORTREVISION=	1
 CATEGORIES=	net x11-servers
 MASTER_SITES=	SF:1 \
 		XORG/individual/xserver:2
@@ -12,7 +11,7 @@ DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:1 \
 		xorg-server-${XORG_VERSION}.tar.bz2:2
 
 MAINTAINER=	meta+ports@vmeta.jp
-COMMENT=	TigerVNC is a high-performance, platform-neutral implementation of VNC
+COMMENT=	TigerVNC is an advanced VNC implementation.
 
 USE_PKGCONFIG=	build
 
@@ -57,12 +56,13 @@ HPJPG_DESC=		Build with High-Performance JPEG support
 
 .include <bsd.port.options.mk>
 
-CMAKE_ARGS=	-G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PREFIX} -DUSE_INCLUDED_ZLIB=1
+CMAKE_ARGS=	-G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=${PREFIX}
 
 .if ${PORT_OPTIONS:MGNUTLS}
 LIB_DEPENDS+=	tasn1:${PORTSDIR}/security/libtasn1 \
 		gcrypt:${PORTSDIR}/security/libgcrypt \
-		gpg-error:${PORTSDIR}/security/libgpg-error
+		gpg-error:${PORTSDIR}/security/libgpg-error \
+		gnutls:${PORTSDIR}/security/gnutls
 CONFIGURE_ARGS+=	--enable-glx-tls
 CMAKE_ARGS+=	-DENABLE_GNUTLS=1
 .else
@@ -86,10 +86,9 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 
 .if ${PORT_OPTIONS:MVIEWER}
 CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DFLTK_INCLUDE_DIR=${LOCALBASE}/include \
-		-DFLTK_LIBRARIES="-L${LOCALBASE}/lib \
-		-lfltk -lfltk_forms -lfltk_images"
+		-DFLTK_LIBRARIES="-L${LOCALBASE}/lib -lfltk -lfltk_forms -lfltk_images"
 LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png \
-		fltk:${PORTSDIR}/x11-toolkits/fltk2
+		fltk:${PORTSDIR}/x11-toolkits/fltk
 USE_XORG+=	xcursor xfixes xft xinerama
 MAN1+=		vncviewer.1
 PLIST_SUB+=	VIEWER=""
@@ -129,11 +128,6 @@ XORG_VERSION=	1.10.6
 XORG_VERSION=	1.7.7
 .endif
 TIGERVNC_XORG_PATCH_VER=	17
-
-.if defined(WITH_OPENSSL_PORT)
-.warning detected OPENSSL_PORT, build with extra-patch
-EXTRA_PATCHES+=	${PATCHDIR}/extra-patch-unix_xserver_configure.ac
-.endif
 
 post-extract:
 	${CP} -R ${WRKDIR}/xorg-server-${XORG_VERSION}/*	${WRKSRC}/unix/xserver/
