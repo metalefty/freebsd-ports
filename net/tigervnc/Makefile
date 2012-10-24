@@ -48,7 +48,7 @@ MAN1+=		vncpasswd.1 \
 		Xvnc.1
 
 OPTIONS_DEFINE=		GNUTLS NLS PAM VIEWER HPJPG
-OPTIONS_DEFAULT=	GNUTLS NLS PAM
+OPTIONS_DEFAULT=	GNUTLS NLS PAM VIEWER
 GNUTLS_DESC=		Build with TLS support
 PAM_DESC=		PAM authentication support
 VIEWER_DESC=		Build vncviewer
@@ -85,11 +85,8 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 .endif
 
 .if ${PORT_OPTIONS:MVIEWER}
-BROKEN=	requires fltk-1.3.x-r9331 or later but the version is not present in ports tree.
-CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DFLTK_INCLUDE_DIR=${LOCALBASE}/include \
-		-DFLTK_LIBRARIES="-L${LOCALBASE}/lib -lfltk -lfltk_forms -lfltk_images"
-LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png \
-		fltk:${PORTSDIR}/x11-toolkits/fltk
+CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DUSE_INCLUDED_FLTK=1
+LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png
 USE_XORG+=	xcursor xfixes xft xinerama
 MAN1+=		vncviewer.1
 PLIST_SUB+=	VIEWER=""
