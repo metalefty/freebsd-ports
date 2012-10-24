@@ -11,7 +11,7 @@ DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:1 \
 		xorg-server-${XORG_VERSION}.tar.bz2:2
 
 MAINTAINER=	meta+ports@vmeta.jp
-COMMENT=	TigerVNC is an advanced VNC implementation.
+COMMENT=	TigerVNC is an advanced VNC implementation
 
 USE_PKGCONFIG=	build
 
@@ -47,7 +47,7 @@ MAN1+=		vncpasswd.1 \
 		Xserver.1 \
 		Xvnc.1
 
-OPTIONS_DEFINE=		GNUTLS NLS PAM VIEWER HPJPG
+OPTIONS_DEFINE=		GNUTLS NLS PAM HPJPG
 OPTIONS_DEFAULT=	GNUTLS NLS PAM VIEWER
 GNUTLS_DESC=		Build with TLS support
 PAM_DESC=		PAM authentication support
@@ -85,6 +85,7 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 .endif
 
 .if ${PORT_OPTIONS:MVIEWER}
+BROKEN=	requires fltk-1.3.x-r9331 or later but the version is not present in ports tree.
 CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DFLTK_INCLUDE_DIR=${LOCALBASE}/include \
 		-DFLTK_LIBRARIES="-L${LOCALBASE}/lib -lfltk -lfltk_forms -lfltk_images"
 LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png \
