@@ -6,18 +6,20 @@
 #
 
 PORTNAME=	fltk
-PORTVERSION=	1.3.0
-PORTREVISION=	2
+PORTVERSION=	1.3.x
+PORTEPOCH=	1
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	${MASTER_SITE_EASYSW}
-MASTER_SITE_SUBDIR=	fltk/${PORTVERSION}
-DISTNAME=	${PORTNAME}-${PORTVERSION}-source
+MASTER_SITE_SUBDIR=	fltk/snapshots
+DISTNAME=	${PORTNAME}-${PORTVERSION}-${SNAPSHOT}
 
 MAINTAINER=	gahr@FreeBSD.org
 COMMENT=	Cross-platform C++ graphical user interface toolkit
 
 LIB_DEPENDS=	png15:${PORTSDIR}/graphics/png \
 		jpeg.11:${PORTSDIR}/graphics/jpeg
+
+SNAPSHOT=	r9701
 
 USE_LDCONFIG=	yes
 USE_XORG=	xft
@@ -29,7 +31,7 @@ CONFIGURE_ARGS+=--enable-threads \
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${WRKSRC}/src -L${LOCALBASE}/lib
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}-${SNAPSHOT}
 
 MAN1=	fltk-config.1 fluid.1
 MAN3=	fltk.3
@@ -43,7 +45,7 @@ post-patch:
 .if !defined(NOPORTDOCS)
 PORTDOCS=	*
 post-install:
-	cd ${WRKSRC}/documentation && ${MAKE} docinstall
+	cd ${WRKSRC}/documentation && ${MAKE} install
 	cd ${WRKSRC}/test && ${MAKE} install
 .endif
 
