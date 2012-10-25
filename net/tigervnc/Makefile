@@ -4,11 +4,11 @@
 PORTNAME=	tigervnc
 PORTVERSION=	1.2.0
 CATEGORIES=	net x11-servers
-MASTER_SITES=	SF:1 \
-		XORG/individual/xserver:2
-MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:1
-DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:1 \
-		xorg-server-${XORG_VERSION}.tar.bz2:2
+MASTER_SITES=	SF:tigervnc \
+		XORG/individual/xserver:xorg
+MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:tigervnc
+DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:tigervnc \
+		xorg-server-${XORG_VERSION}.tar.bz2:xorg
 
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	TigerVNC is an advanced VNC implementation
@@ -85,8 +85,9 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 .endif
 
 .if ${PORT_OPTIONS:MVIEWER}
-CMAKE_ARGS+=	-DENABLE_VIEWER=1 -DUSE_INCLUDED_FLTK=1
-LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png
+CMAKE_ARGS+=	-DENABLE_VIEWER=1
+LIB_DEPENDS+=	png15:${PORTSDIR}/graphics/png \
+		fltk:${PORTSDIR}/x11-toolkits/fltk
 USE_XORG+=	xcursor xfixes xft xinerama
 MAN1+=		vncviewer.1
 PLIST_SUB+=	VIEWER=""
@@ -129,6 +130,7 @@ TIGERVNC_XORG_PATCH_VER=	17
 
 post-extract:
 	${CP} -R ${WRKDIR}/xorg-server-${XORG_VERSION}/*	${WRKSRC}/unix/xserver/
+#	${RM} -rf ${WRKSRC}/common/fltk/
 
 post-patch:
 	@cd ${WRKSRC}/unix/xserver/ && ${PATCH} -p1 < ${WRKSRC}/unix/xserver${TIGERVNC_XORG_PATCH_VER}.patch
