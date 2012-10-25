@@ -2,7 +2,7 @@
 # Date created:				2007-02-19
 # Whom:					alepulver
 #
-# $FreeBSD: ports/net/xrdp/Makefile,v 1.19 2012/09/09 22:20:17 swills Exp $
+# $FreeBSD: ports/net/xrdp/Makefile,v 1.20 2012/10/06 01:25:46 swills Exp $
 #
 
 PORTNAME=	xrdp
@@ -11,7 +11,6 @@ CATEGORIES=	net
 MASTER_SITES=	http://www.club.kyutech.ac.jp/~meta/distfiles/ \
 		http://key2.jp/~meta/distfiles/
 PKGNAMESUFFIX=	-devel
-#DISTNAME=	${PORTNAME}-${PORTVERSION}
 DIST_SUBDIR?=	${PORTNAME}
 
 PATCH_SITES=	http://www.club.kyutech.ac.jp/~meta/patches/xrdp/0.6.0/ \
@@ -31,18 +30,19 @@ USE_RC_SUBR=	xrdp
 CONFIGURE_ARGS=	--localstatedir=/var
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
-RUN_DEPENDS+=	Xvnc:${PORTSDIR}/net/vnc
 CONFLICTS=	xrdp-[0-9]*
 
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 
-OPTIONS_DEFINE=	DEBUG JP106
+OPTIONS_DEFINE=	DEBUG GATEWAY JP106
 OPTIONS_DEFAULT=	JP106
+GATEWAY_DESC=	Install xrdp as RDP gateway (no VNC backend)
 JP106_DESC=	Install Japanese JP106 keymap
 
 .include <bsd.port.options.mk>
 
 .if ${PORT_OPTIONS:MDEBUG}
+CONFIGURE_ARGS+=	--enable-xrdpdebug
 CFLAGS+=	-DXRDP_DEBUG
 .endif
 
@@ -55,6 +55,10 @@ PATCHFILES+=	patch-instfiles__Makefile.am \
 PLIST_SUB+=	JP106=""
 .else
 PLIST_SUB+=	JP106="@comment "
+.endif
+
+.if !${PORT_OPTIONS:MGATEWAY}
+RUN_DEPENDS+=	Xvnc:${PORTSDIR}/net/vnc
 .endif
 
 MAN5=		sesman.ini.5 xrdp.ini.5
