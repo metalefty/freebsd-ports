@@ -130,7 +130,6 @@ TIGERVNC_XORG_PATCH_VER=	17
 
 post-extract:
 	${CP} -R ${WRKDIR}/xorg-server-${XORG_VERSION}/*	${WRKSRC}/unix/xserver/
-#	${RM} -rf ${WRKSRC}/common/fltk/
 
 post-patch:
 	@cd ${WRKSRC}/unix/xserver/ && ${PATCH} -p1 < ${WRKSRC}/unix/xserver${TIGERVNC_XORG_PATCH_VER}.patch
