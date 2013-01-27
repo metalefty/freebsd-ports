@@ -1,12 +1,9 @@
-# New ports collection makefile for:	xrdp
-# Date created:				2007-02-19
-# Whom:					alepulver
-#
-# $FreeBSD: ports/net/xrdp/Makefile,v 1.19 2012/09/09 22:20:17 swills Exp $
-#
+# Created by: alepulver
+# $FreeBSD: ports/net/xrdp/Makefile,v 1.23 2013/01/09 07:46:44 svnexp Exp $
 
 PORTNAME=	xrdp
 PORTVERSION=	0.6.0
+PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	net
 MASTER_SITES=	SF/xrdp/xrdp/${PORTVERSION}
@@ -79,6 +76,8 @@ post-install:
 		${CP} -p ${PREFIX}/etc/xrdp/$f.sample ${PREFIX}/etc/xrdp/$f ; \
 	fi
 .endfor
+	@if cmp -s ${PREFIX}/etc/xrdp/rsakeys.ini.sample ${PREFIX}/etc/xrdp/rsakeys.ini; then \
+		${PREFIX}/bin/xrdp-keygen xrdp ${PREFIX}/etc/xrdp/rsakeys.ini; fi
 	@${ECHO_CMD}; ${CAT} ${PKGMESSAGE}; ${ECHO_CMD}
 
 .include <bsd.port.mk>
