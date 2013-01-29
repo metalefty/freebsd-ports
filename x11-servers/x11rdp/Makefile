@@ -12,7 +12,7 @@ DISTNAME=	${PORTNAME}_xorg71
 DISTFILES=	${PORTNAME}_xorg71_r${X11RDPREVISION}.tar.gz:x11rdp
 
 MAINTAINER=	meta+ports@vmeta.jp
-COMMENT=	An X11 server for net/xrdp, net/xrdp-devel
+COMMENT=	An X11 server for xrdp
 
 RUN_DEPENDS=	xorg-fonts>=0:${PORTSDIR}/x11-fonts/xorg-fonts
 
@@ -34,6 +34,9 @@ post-extract:
 
 post-patch:
 	@${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/buildx.sh
+	@${REINPLACE_CMD} -e "s|%%CC%%|${CC}|g" ${WRKSRC}/buildx.sh
+	@${REINPLACE_CMD} -e "s|%%CXX%%|${CXX}|g" ${WRKSRC}/buildx.sh
+	@${REINPLACE_CMD} -e "s|%%CPP%%|${CPP}|g" ${WRKSRC}/buildx.sh
 
 do-build:
 	@cd ${WRKSRC} && GNUMAKE=${GMAKE} ${SH} ${WRKSRC}/buildx.sh ${WRKSRC}/build
