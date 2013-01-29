@@ -14,16 +14,18 @@ DISTFILES=	${PORTNAME}_xorg71_r${X11RDPREVISION}.tar.gz:x11rdp
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	An X11 server for net/xrdp, net/xrdp-devel
 
-PLIST_FILES=	bin/X11rdp
+RUN_DEPENDS=	xorg-fonts>=0:${PORTSDIR}/x11-fonts/xorg-fonts
 
 # SVN revision of x11rdp
 X11RDPREVISION=299
 
-#GNU_CONFIGURE=	yes
 USE_OPENSSL=	yes
 USE_GMAKE=	yes
 USE_PKGCONFIG=	yes
+USE_PERL5_BUILD=	yes
 USE_GCC=	4.2+
+
+PLIST_FILES=	bin/X11rdp
 
 GNUMAKE=${GMAKE}
 
