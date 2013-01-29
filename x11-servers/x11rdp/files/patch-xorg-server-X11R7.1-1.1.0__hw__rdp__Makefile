@@ -1,0 +1,10 @@
+--- xorg-server-X11R7.1-1.1.0/hw/rdp/Makefile.orig	2013-01-28 18:56:45.292227508 +0000
++++ xorg-server-X11R7.1-1.1.0/hw/rdp/Makefile	2013-01-28 18:57:05.155226811 +0000
+@@ -37,6 +37,7 @@
+ 	-I$(INCBASE)/xorg \
+ 	-I../../os \
+ 	-I../../render \
++	-I../../randr \
+ 	-I../xfree86/common \
+ 	-I../xfree86/os-support \
+ 	-D_POSIX_C_SOURCE=199309L -D_SVID_SOURCE -D_REENTRANT \
