@@ -27,6 +27,7 @@ USE_RC_SUBR=	xrdp
 CONFIGURE_ARGS=	--localstatedir=/var
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
+CONFLICTS=	xrdp-devel-[0-9]*
 
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 
