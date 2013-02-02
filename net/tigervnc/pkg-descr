@@ -1,6 +1,4 @@
-tigervnc and x.org Xvnc server programs.
+TigerVNC is a high-performance, platform-neutral implementation of VNC (Virtual Network Computing),
+a client/server application that allows users to launch and interact with graphical applications on remote machines.
 
 WWW: http://tigervnc.org/
-
-- bompopo
-bompopo@gmail.com
