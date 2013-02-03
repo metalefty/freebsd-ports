@@ -11,10 +11,7 @@ DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:tigervnc
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	TigerVNC is an advanced VNC implementation
 
-USE_PKGCONFIG=	build
-
 PATCH_DEPENDS=	${NONEXISTENT}:${PORTSDIR}/x11-servers/xorg-server:patch
-
 BUILD_DEPENDS+=	cmake:${PORTSDIR}/devel/cmake \
 		pkgconf:${PORTSDIR}/devel/pkgconf \
 		${LOCALBASE}/share/aclocal/xorg-macros.m4:${PORTSDIR}/devel/xorg-macros \
@@ -26,6 +23,7 @@ CONFLICTS=	tridiavnc-[0-9]* \
 
 MAKE_JOBS_UNSAFE=	yes
 
+USE_PKGCONFIG=	build
 USE_GMAKE=	yes
 USE_GL=		gl
 USE_AUTOTOOLS+=	autoconf:env automake:env libtool:env
