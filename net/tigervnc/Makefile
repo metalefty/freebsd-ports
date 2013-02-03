@@ -44,7 +44,6 @@ MAN1+=		vncpasswd.1 \
 		x0vncserver.1 \
 		vncserver.1 \
 		vncconfig.1 \
-		Xserver.1 \
 		Xvnc.1
 
 OPTIONS_DEFINE=		GNUTLS NLS PAM VIEWER HPJPG
@@ -121,12 +120,13 @@ CONFIGURE_ARGS+=	--prefix=${PREFIX} --mandir=${PREFIX}/man/ \
 .include <bsd.port.pre.mk>
 
 .if defined(WITH_NEW_XORG)
-BROKEN=		does not build with new xorg
+#BROKEN=		does not build with new xorg
 XORG_VERSION=	1.10.6
+TIGERVNC_XORG_PATCH_VER=	110
 .else
 XORG_VERSION=	1.7.7
-.endif
 TIGERVNC_XORG_PATCH_VER=	17
+.endif
 
 post-extract:
 	${CP} -R ${WRKDIR}/xorg-server-${XORG_VERSION}/*	${WRKSRC}/unix/xserver/
@@ -135,11 +135,16 @@ post-patch:
 	@cd ${WRKSRC}/unix/xserver/ && ${PATCH} -p1 < ${WRKSRC}/unix/xserver${TIGERVNC_XORG_PATCH_VER}.patch
 
 do-configure:
-	@cd ${WRKSRC}			&& ${SETENV} ${CONFIGURE_ENV} cmake ${CMAKE_ARGS} .
-	@cd ${WRKSRC}/unix/xserver/	&& ${SETENV} ${CONFIGURE_ENV} ${AUTORECONF} -fiv
-	@cd ${WRKSRC}/unix/xserver/	&& ${SETENV} ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS}
+	@cd ${WRKSRC}               && ${SETENV} ${CONFIGURE_ENV} cmake ${CMAKE_ARGS} .
+	@cd ${WRKSRC}/unix/xserver/ && ${SETENV} ${CONFIGURE_ENV} ${AUTORECONF} -fiv
+	@cd ${WRKSRC}/unix/xserver/ && ${SETENV} ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS}
+
+do-build:
+	@cd ${WRKSRC}               && ${SETENV} ${MAKE_ENV} ${GMAKE} ${MAKE_ARGS}
+	@cd ${WRKSRC}/unix/xserver/ && ${SETENV} ${MAKE_ENV} ${GMAKE} ${MAKE_ARGS}
 
 post-install:
-	@cd ${WRKSRC}/unix/xserver/ && ${SETENV} ${MAKE_ENV} ${GMAKE} ${MAKE_ARGS} install
+	@cd ${WRKSRC}                      && ${SETENV} ${MAKE_ENV} ${GMAKE} ${MAKE_ARGS} install
+	@cd ${WRKSRC}/unix/xserver/hw/vnc/ && ${SETENV} ${MAKE_ENV} ${GMAKE} ${MAKE_ARGS} install
 
 .include <bsd.port.post.mk>

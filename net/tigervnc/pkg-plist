@@ -4,7 +4,7 @@ bin/vncpasswd
 bin/vncserver
 %%VIEWER%%bin/vncviewer
 bin/x0vncserver
-lib/X11/protocol.txt
+@comment lib/X11/protocol.txt
 lib/xorg/modules/extensions/libvnc.la
 lib/xorg/modules/extensions/libvnc.so
 %%DOCSDIR%%/LICENCE.TXT
