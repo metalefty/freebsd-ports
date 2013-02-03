@@ -4,7 +4,6 @@ bin/vncpasswd
 bin/vncserver
 %%VIEWER%%bin/vncviewer
 bin/x0vncserver
-@comment lib/X11/protocol.txt
 lib/xorg/modules/extensions/libvnc.la
 lib/xorg/modules/extensions/libvnc.so
 %%DOCSDIR%%/LICENCE.TXT
@@ -15,7 +14,4 @@ lib/xorg/modules/extensions/libvnc.so
 %%NLS%%share/locale/ru/LC_MESSAGES/tigervnc.mo
 %%NLS%%share/locale/sk/LC_MESSAGES/tigervnc.mo
 %%NLS%%share/locale/sv/LC_MESSAGES/tigervnc.mo
-@dirrm %%DOCSDIR%%
-@dirrm lib/xorg/modules/extensions
-@dirrm lib/xorg/modules
-@dirrm lib/xorg
+@dirrmtry %%DOCSDIR%%
