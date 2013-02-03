@@ -4,16 +4,16 @@
 PORTNAME=	tigervnc
 PORTVERSION=	1.2.0
 CATEGORIES=	net x11-servers
-MASTER_SITES=	SF:tigervnc \
-		XORG/individual/xserver:xorg
+MASTER_SITES=	SF:tigervnc
 MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:tigervnc
-DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:tigervnc \
-		xorg-server-${XORG_VERSION}.tar.bz2:xorg
+DISTFILES=	${PORTNAME}-${PORTVERSION}.tar.gz:tigervnc
 
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	TigerVNC is an advanced VNC implementation
 
 USE_PKGCONFIG=	build
+
+PATCH_DEPENDS=	${NONEXISTENT}:${PORTSDIR}/x11-servers/xorg-server:patch
 
 BUILD_DEPENDS+=	cmake:${PORTSDIR}/devel/cmake \
 		pkgconf:${PORTSDIR}/devel/pkgconf \
@@ -101,7 +101,8 @@ BUILD_DEPENDS+=	${LOCALBASE}/lib/libjpeg.so:${PORTSDIR}/graphics/jpeg
 .endif
 
 MAKE_ARGS+=	TIGERVNC_SRCDIR=${WRKSRC}
-CONFIGURE_ARGS+=	--prefix=${PREFIX} --mandir=${PREFIX}/man/ \
+CONFIGURE_ARGS+= \
+		--prefix=${PREFIX} --mandir=${PREFIX}/man/ \
 		--docdir=${PREFIX}/share/doc/${PORTNAME}/ --with-pic --without-dtrace \
 		--disable-static --disable-dri \
 		--disable-xinerama --disable-xvfb --disable-xnest --disable-xorg \
@@ -120,7 +121,6 @@ CONFIGURE_ARGS+=	--prefix=${PREFIX} --mandir=${PREFIX}/man/ \
 .include <bsd.port.pre.mk>
 
 .if defined(WITH_NEW_XORG)
-#BROKEN=		does not build with new xorg
 XORG_VERSION=	1.10.6
 TIGERVNC_XORG_PATCH_VER=	110
 .else
@@ -128,8 +128,16 @@ XORG_VERSION=	1.7.7
 TIGERVNC_XORG_PATCH_VER=	17
 .endif
 
-post-extract:
-	${CP} -R ${WRKDIR}/xorg-server-${XORG_VERSION}/*	${WRKSRC}/unix/xserver/
+# import from x11-server/xorg-server/Makefile
+.if defined(WITH_OPENSSL_BASE)
+# The reason why I use this is cause openssl from base doesn't install a .pc file
+# and configure will fail trying to find it. Setting both of those variables to
+# a *non-empty* value by-passes the pkg-config check.
+CONFIGURE_ENV=	SHA1_LIB="-L/usr/lib -lcrypto" SHA1_CFLAGS="-I/usr/include"
+.endif
+
+pre-patch:
+	${CP} -R ${PORTSDIR}/x11-servers/xorg-server/work/xorg-server-${XORG_VERSION}/*	${WRKSRC}/unix/xserver/
 
 post-patch:
 	@cd ${WRKSRC}/unix/xserver/ && ${PATCH} -p1 < ${WRKSRC}/unix/xserver${TIGERVNC_XORG_PATCH_VER}.patch
