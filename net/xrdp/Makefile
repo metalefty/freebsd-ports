@@ -3,7 +3,7 @@
 
 PORTNAME=	xrdp
 PORTVERSION=	0.6.0
-PORTREVISION=	2
+PORTREVISION=	3
 PORTEPOCH=	1
 CATEGORIES=	net
 MASTER_SITES=	SF/xrdp/xrdp/${PORTVERSION}
@@ -31,12 +31,36 @@ CONFLICTS=	xrdp-devel-[0-9]*
 
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 
-OPTIONS_DEFINE=	DEBUG GATEWAY JP106
-OPTIONS_DEFAULT=	JP106
-GATEWAY_DESC=	Install xrdp as RDP gateway (no VNC backend)
+OPTIONS_DEFINE=	DEBUG JP106 X11RDP
+OPTIONS_DEFAULT=	JP106 X11RDP TIGERVNC
+OPTIONS_RADIO=	VNC
+OPTIONS_RADIO_VNC=	REALVNC TIGERVNC TIGHTVNC TRIDIAVNC
+REALVNC_DESC=	Use RealVNC backend
+TIGERVNC_DESC=	Use TigerVNC backend
+TIGHTVNC_DESC=	Use TightVNC backend
+TRIDIAVNC_DESC=	Use TridiaVNC backend
+X11RDP_DESC=	Use x11rdp (recommended)
 JP106_DESC=	Install Japanese JP106 keymap
 
 .include <bsd.port.options.mk>
+
+# Which Xserver to use
+.if ${PORT_OPTIONS:MREALVNC}
+RUN_DEPENDS=	Xvnc:${PORTSDIR}/net/vnc
+.endif
+.if ${PORT_OPTIONS:MTIGERVNC}
+RUN_DEPENDS=	Xvnc:${PORTSDIR}/net/tigervnc
+.endif
+.if ${PORT_OPTIONS:MTIGHTVNC}
+RUN_DEPENDS=	Xvnc:${PORTSDIR}/net/tightvnc
+.endif
+.if ${PORT_OPTIONS:MTRIDIAVNC}
+RUN_DEPENDS=	Xvnc:${PORTSDIR}/net/tridiavnc
+.endif
+.if ${PORT_OPTIONS:MX11RDP} || exists(${LOCALBASE}/bin/X11rdp)
+RUN_DEPENDS+=	X11rdp:${PORTSDIR}/x11-servers/x11rdp
+EXTRA_PATTCHES+=	${FILESDIR}/extra-patch-x11rdp_xrdp.ini
+.endif
 
 .if ${PORT_OPTIONS:MDEBUG}
 CONFIGURE_ARGS+=	--enable-xrdpdebug
@@ -52,10 +76,6 @@ PATCHFILES+=	patch-instfiles__Makefile.am \
 PLIST_SUB+=	JP106=""
 .else
 PLIST_SUB+=	JP106="@comment "
-.endif
-
-.if !${PORT_OPTIONS:MGATEWAY}
-RUN_DEPENDS+=	Xvnc:${PORTSDIR}/net/vnc
 .endif
 
 MAN5=		sesman.ini.5 xrdp.ini.5
