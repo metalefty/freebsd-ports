@@ -5,14 +5,17 @@ PORTNAME=	tigervnc
 PORTVERSION=	1.3.1
 PORTREVISION=	6
 CATEGORIES=	net x11-servers
-MASTER_SITES=	SF:tigervnc
-MASTER_SITE_SUBDIR=	${PORTNAME}/${PORTNAME}/${PORTVERSION}/:tigervnc
-DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}:tigervnc
 
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	High-performance, platform-neutral implementation of VNC
 
 LICENSE=	GPLv2
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	TigerVNC
+GH_PROJECT=	tigervnc
+GH_TAGNAME=	v${PORTVERSION}
+GH_COMMIT=	604648d
 
 PATCH_DEPENDS=	${NONEXISTENT}:${PORTSDIR}/x11-servers/xorg-server:patch
 BUILD_DEPENDS=	${LOCALBASE}/include/GL/internal/dri_interface.h:${PORTSDIR}/graphics/dri \
