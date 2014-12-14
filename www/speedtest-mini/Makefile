@@ -27,5 +27,7 @@ do-install:
 		${STAGEDIR}${WWWDIR}/speedtest
 	${INSTALL_DATA} ${WRKDIR}/${DISTNAME}/speedtest/upload.php \
 		${STAGEDIR}${WWWDIR}/speedtest
+	${INSTALL_DATA} ${WRKDIR}/${DISTNAME}/speedtest/latency.txt \
+		${STAGEDIR}${WWWDIR}/speedtest
 
 .include <bsd.port.mk>
