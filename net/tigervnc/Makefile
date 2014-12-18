@@ -3,19 +3,14 @@
 
 PORTNAME=	tigervnc
 PORTVERSION=	1.3.1
-PORTREVISION=	6
+PORTREVISION=	7
 CATEGORIES=	net x11-servers
+MASTER_SITES=	https://github.com/TigerVNC/tigervnc/archive/v${PORTVERSION}${EXTRACT_SUFX}?dummy=/
 
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	High-performance, platform-neutral implementation of VNC
 
 LICENSE=	GPLv2
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	TigerVNC
-GH_PROJECT=	tigervnc
-GH_TAGNAME=	v${PORTVERSION}
-GH_COMMIT=	604648d
 
 PATCH_DEPENDS=	${NONEXISTENT}:${PORTSDIR}/x11-servers/xorg-server:patch
 BUILD_DEPENDS=	${LOCALBASE}/include/GL/internal/dri_interface.h:${PORTSDIR}/graphics/dri \
@@ -141,6 +136,9 @@ pre-patch:
 	@${CP} -R `${XORG_WRKDIR}`/ ${WRKSRC}/unix/xserver/
 
 post-patch:
+	# workaround to fix the build after xorg-server security advisory (r374489)
+	@cd ${WRKSRC}/unix/xserver/ && ${CP} include/regionstr.h.orig include/regionstr.h
+	# apply tigervnc patches to xorg-server source
 	@cd ${WRKSRC}/unix/xserver/ && ${PATCH} -p1 < ${WRKSRC}/unix/xserver${TIGERVNC_XORG_PATCH_VER}.patch
 
 post-configure:
