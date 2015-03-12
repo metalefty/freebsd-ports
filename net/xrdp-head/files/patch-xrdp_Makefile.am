@@ -1,0 +1,11 @@
+--- xrdp/Makefile.am.orig	2013-10-24 17:51:10.000000000 +0000
++++ xrdp/Makefile.am	2013-10-27 21:38:10.386300725 +0000
+@@ -44,7 +44,7 @@
+ xrdpsysconfdir=$(sysconfdir)/xrdp
+ 
+ xrdpsysconf_DATA = \
+-  xrdp.ini 
++  xrdp.ini.sample
+ 
+ xrdppkgdatadir=$(datadir)/xrdp
+ 
