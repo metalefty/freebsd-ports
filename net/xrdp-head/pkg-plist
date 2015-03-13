@@ -1,60 +1,63 @@
-@stopdaemon xrdp
 bin/xrdp-dis
 bin/xrdp-genkeymap
 bin/xrdp-keygen
 bin/xrdp-sesadmin
 bin/xrdp-sesrun
 lib/xrdp/libcommon.a
-lib/xrdp/libcommon.la
 lib/xrdp/libcommon.so
 lib/xrdp/libcommon.so.0
+lib/xrdp/libcommon.so.0.0.0
 lib/xrdp/libmc.a
-lib/xrdp/libmc.la
 lib/xrdp/libmc.so
 lib/xrdp/libmc.so.0
+lib/xrdp/libmc.so.0.0.0
 lib/xrdp/librdp.a
-lib/xrdp/librdp.la
 lib/xrdp/librdp.so
 lib/xrdp/librdp.so.0
+lib/xrdp/librdp.so.0.0.0
 lib/xrdp/libscp.a
-lib/xrdp/libscp.la
 lib/xrdp/libscp.so
 lib/xrdp/libscp.so.0
+lib/xrdp/libscp.so.0.0.0
 lib/xrdp/libvnc.a
-lib/xrdp/libvnc.la
 lib/xrdp/libvnc.so
 lib/xrdp/libvnc.so.0
+lib/xrdp/libvnc.so.0.0.0
 lib/xrdp/libxrdp.a
-lib/xrdp/libxrdp.la
 lib/xrdp/libxrdp.so
 lib/xrdp/libxrdp.so.0
+lib/xrdp/libxrdp.so.0.0.0
 lib/xrdp/libxup.a
-lib/xrdp/libxup.la
 lib/xrdp/libxup.so
 lib/xrdp/libxup.so.0
+lib/xrdp/libxup.so.0.0.0
 lib/xrdp/libxrdpapi.so
 lib/xrdp/libxrdpapi.a
 lib/xrdp/libxrdpapi.so.0
-lib/xrdp/libxrdpapi.la
+lib/xrdp/libxrdpapi.so.0.0.0
 etc/pam.d/xrdp-sesman
+etc/rc.d/xrdp
 %%ETCDIR%%/km-0407.ini
 %%ETCDIR%%/km-0409.ini
 %%ETCDIR%%/km-040c.ini
 %%ETCDIR%%/km-0410.ini
+%%ETCDIR%%/km-0411.ini
+%%ETCDIR%%/km-0415.ini
 %%ETCDIR%%/km-0419.ini
 %%ETCDIR%%/km-041d.ini
 %%ETCDIR%%/km-0816.ini
+%%ETCDIR%%/km-e0010411.ini
+%%ETCDIR%%/km-e0200411.ini
+%%ETCDIR%%/km-e0210411.ini
 %%ETCDIR%%/pulse/default.pa
-%%JP106%%%%ETCDIR%%/km-0411.ini
-%%JP106%%%%ETCDIR%%/km-e0010411.ini
-%%JP106%%%%ETCDIR%%/km-e0200411.ini
-%%JP106%%%%ETCDIR%%/km-e0210411.ini
 @unexec if cmp -s %D/etc/xrdp/sesman.ini.sample %D/etc/xrdp/sesman.ini; then rm -f %D/etc/xrdp/sesman.ini; fi
 @unexec if cmp -s %D/etc/xrdp/startwm.sh.sample %D/etc/xrdp/startwm.sh; then rm -f %D/etc/xrdp/startwm.sh; fi
 @unexec if cmp -s %D/etc/xrdp/xrdp.ini.sample %D/etc/xrdp/xrdp.ini; then rm -f %D/etc/xrdp/xrdp.ini; fi
+@unexec if cmp -s %D/etc/xrdp/xrdp_keyboard.ini.sample %D/etc/xrdp/xrdp_keyboard.ini; then rm -f %D/etc/xrdp/xrdp_keyboard.ini; fi
 @sample %%ETCDIR%%/sesman.ini.sample
 @sample %%ETCDIR%%/startwm.sh.sample
 @sample %%ETCDIR%%/xrdp.ini.sample
+@sample %%ETCDIR%%/xrdp_keyboard.ini.sample
 man/man1/xrdp-dis.1.gz
 man/man5/sesman.ini.5.gz
 man/man8/xrdp.8.gz
@@ -78,7 +81,3 @@ sbin/xrdp-sessvc
 %%DATADIR%%/xrdp24b.bmp
 %%DATADIR%%/xrdp256.bmp
 %%DATADIR%%/xrdp_logo.bmp
-@dirrm %%DATADIR%%
-@dirrm lib/xrdp
-@dirrmtry %%ETCDIR%%/pulse
-@dirrmtry %%ETCDIR%%
