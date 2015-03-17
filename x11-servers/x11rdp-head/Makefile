@@ -2,11 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	x11rdp
-PORTVERSION=	0.8.0.b20140216
-PORTREVISION=	0
-PORTEPOCH=	0
+PORTVERSION=	0.9.0.b20150311
+#PORTREVISION=	0
 CATEGORIES=	x11-servers
-MASTER_SITES=	http://www.club.kyutech.ac.jp/~meta/distfiles/xrdp/:xorg \
+MASTER_SITES=	https://xrdp.vmeta.jp/pub/xrdp/X11R7.6/:xorg \
 		http://server1.xrdp.org/xrdp/X11R7.6/:xorg \
 		GH:x11rdp
 PKGNAMESUFFIX=	-head
@@ -15,9 +14,11 @@ DISTFILES=	xorg-server-${X11RDP_XORG_VERSION}.tar.bz2:xorg \
 DIST_SUBDIR=	xrdp
 
 MAINTAINER=	meta+ports@vmeta.jp
-COMMENT=	X11 server for xrdp
+COMMENT=	X11 server for xrdp (develop version)
 
-LIB_DEPENDS=	freetype:${PORTSDIR}/print/freetype2
+LICENSE=	MIT
+
+#LIB_DEPENDS=	freetype:${PORTSDIR}/print/freetype2
 BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri
 RUN_DEPENDS=	xorg-fonts>=0:${PORTSDIR}/x11-fonts/xorg-fonts \
 		${LOCALBASE}/share/X11/xkb/rules/base:${PORTSDIR}/x11/xkeyboard-config
@@ -33,7 +34,7 @@ USE_XORG=	damageproto fixesproto fontutil xcmiscproto xtrans bigreqsproto xproto
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_COMMIT=	1d9c773
+GH_COMMIT=	291cb73
 GH_TAGNAME=	${GH_COMMIT}
 
 CONFLICTS_INSTALL=	x11rdp-[0-9]* x11rdp-devel-[0-9]*
@@ -54,10 +55,6 @@ CONFIGURE_ARGS=	\
 		--with-xkb-bin-directory=${LOCALBASE}/bin \
 		--with-xkb-path=${LOCALBASE}/share/X11/xkb \
 		--with-xkb-output=${XORG_TMPBASE}/share
-
-.if !defined(WITH_NEW_XORG)
-IGNORE=	does not build with xorg-server 1.7.7
-.endif
 
 post-extract:
 	@${MKDIR} ${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}/xorg/X11R7.6/build_dir
