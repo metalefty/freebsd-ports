@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	tigervnc
-PORTVERSION=	1.3.1
-PORTREVISION=	9
+PORTVERSION=	1.4.3
+#PORTREVISION=	0
 CATEGORIES=	net x11-servers
 MASTER_SITES=	https://github.com/TigerVNC/tigervnc/archive/v${PORTVERSION}${EXTRACT_SUFX}?dummy=/
 
@@ -77,7 +77,7 @@ CMAKE_ARGS+=	-DBUILD_VIEWER=1
 LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png \
 		libfltk.so:${PORTSDIR}/x11-toolkits/fltk
 # ImageMagick is required to generate icons during build process
-BUILD_DEPENDS+= ${LOCALBASE}/bin/convert:${PORTSDIR}/graphics/ImageMagick
+BUILD_DEPENDS+=	${LOCALBASE}/bin/convert:${PORTSDIR}/graphics/ImageMagick
 USE_XORG+=	xcursor xfixes xft xinerama
 PLIST_SUB+=	VIEWER=""
 INSTALLS_ICONS=	yes
