@@ -3,7 +3,7 @@
 
 PORTNAME=	tigervnc
 PORTVERSION=	1.3.1
-PORTREVISION=	7
+PORTREVISION=	9
 CATEGORIES=	net x11-servers
 MASTER_SITES=	https://github.com/TigerVNC/tigervnc/archive/v${PORTVERSION}${EXTRACT_SUFX}?dummy=/
 
@@ -74,7 +74,7 @@ CMAKE_ARGS+=	-DENABLE_PAM=0
 
 .if ${PORT_OPTIONS:MVIEWER}
 CMAKE_ARGS+=	-DBUILD_VIEWER=1
-LIB_DEPENDS+=	libpng15.so:${PORTSDIR}/graphics/png \
+LIB_DEPENDS+=	libpng.so:${PORTSDIR}/graphics/png \
 		libfltk.so:${PORTSDIR}/x11-toolkits/fltk
 # ImageMagick is required to generate icons during build process
 BUILD_DEPENDS+= ${LOCALBASE}/bin/convert:${PORTSDIR}/graphics/ImageMagick
@@ -98,7 +98,7 @@ MAKE_ARGS+=	TIGERVNC_SRCDIR=${WRKSRC}
 CONFIGURE_ARGS+=	\
 		--prefix=${PREFIX} --mandir=${PREFIX}/man/ \
 		--docdir=${PREFIX}/share/doc/${PORTNAME}/ --with-pic --without-dtrace \
-		--disable-static --disable-dri \
+		--disable-static --disable-dri --disable-unit-tests \
 		--disable-xinerama --disable-xvfb --disable-xnest --disable-xorg \
 		--disable-dmx --disable-xwin --disable-xephyr --disable-kdrive \
 		--disable-config-dbus --disable-config-hal \
@@ -107,20 +107,12 @@ CONFIGURE_ARGS+=	\
 		--with-xkb-path=${LOCALBASE}/share/X11/xkb \
 		--with-xkb-bin-directory=${LOCALBASE}/bin \
 		--with-serverconfig-path=${LOCALBASE}/lib/X11 \
-		--disable-selective-werror
-.ifdef WITH_NEW_XORG
-CONFIGURE_ARGS+=	--with-fontrootdir=${LOCALBASE}/share/fonts
-.else
-CONFIGURE_ARGS+=	--with-fontdir=${LOCALBASE}/share/fonts
-.endif
+		--disable-selective-werror \
+		--with-fontrootdir=${LOCALBASE}/share/fonts
 
 .include <bsd.port.pre.mk>
 
-.ifdef WITH_NEW_XORG
-TIGERVNC_XORG_PATCH_VER=	112
-.else
-TIGERVNC_XORG_PATCH_VER=	17
-.endif
+TIGERVNC_XORG_PATCH_VER=	114
 
 # import from x11-server/xorg-server/Makefile
 .ifdef WITH_OPENSSL_BASE
@@ -136,9 +128,6 @@ pre-patch:
 	@${CP} -R `${XORG_WRKDIR}`/ ${WRKSRC}/unix/xserver/
 
 post-patch:
-	# workaround to fix the build after xorg-server security advisory (r374489)
-	@cd ${WRKSRC}/unix/xserver/ && ${CP} include/regionstr.h.orig include/regionstr.h
-	# apply tigervnc patches to xorg-server source
 	@cd ${WRKSRC}/unix/xserver/ && ${PATCH} -p1 < ${WRKSRC}/unix/xserver${TIGERVNC_XORG_PATCH_VER}.patch
 
 post-configure:
