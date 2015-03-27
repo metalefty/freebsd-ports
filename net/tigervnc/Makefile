@@ -3,7 +3,6 @@
 
 PORTNAME=	tigervnc
 PORTVERSION=	1.4.3
-#PORTREVISION=	0
 CATEGORIES=	net x11-servers
 MASTER_SITES=	https://github.com/TigerVNC/tigervnc/archive/v${PORTVERSION}${EXTRACT_SUFX}?dummy=/
 
@@ -116,9 +115,10 @@ TIGERVNC_XORG_PATCH_VER=	114
 
 # import from x11-server/xorg-server/Makefile
 .ifdef WITH_OPENSSL_BASE
-# The reason why I use this is cause openssl from base doesn't install a .pc file
-# and configure will fail trying to find it. Setting both of those variables to
-# a *non-empty* value by-passes the pkg-config check.
+# The reason why I use this is cause openssl from base doesn't
+# install a .pc file and configure will fail trying to find it.
+# Setting both of those variables to a *non-empty* value by-passes
+# the pkg-config check.
 CONFIGURE_ENV=	SHA1_LIB="-L/usr/lib -lcrypto" SHA1_CFLAGS="-I/usr/include"
 .endif
 
