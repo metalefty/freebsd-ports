@@ -9,7 +9,7 @@ MASTER_SITES=	LOCAL/hrs
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=	hrs@FreeBSD.org
+MAINTAINER?=	hrs@FreeBSD.org
 COMMENT?=	Mozc Japanese Input Method, Server
 
 LICENSE=	BSD3CLAUSE
@@ -60,10 +60,6 @@ _CCTYPE=	gcc
 .endif
 
 .include <bsd.port.pre.mk>
-
-.if ${OSVERSION} < 800107
-BROKEN=		Does not compile on FreeBSD 7.X
-.endif
 
 .if ${ARCH} == "ia64" || ${ARCH} == "powerpc" || ${ARCH} == "sparc64"
 BROKEN=		Does not compile: segfault
@@ -255,6 +251,60 @@ do-install-ibus_mozc:
 	    ${STAGEDIR}${DATADIR}/icons/product_icon.png
 .endif
 
+# uim_mozc
+MACUIM_VERSION=	0.6.16.2
+.if ${BUILD_MOZC_LIST:Muim_mozc} == "uim_mozc" || make(makesum)
+MASTER_SITES+=	https://github.com/e-kato/macuim/archive/v${MACUIM_VERSION}.tar.gz?dummy=/:uim
+DISTFILES+=	macuim-${MACUIM_VERSION}.tar.gz:uim
+EXTRACT_ONLY+=  macuim-${MACUIM_VERSION}.tar.gz
+USES+=	tar:gz
+.endif
+.if ${BUILD_MOZC_LIST:Muim_mozc} == "uim_mozc"
+
+LIB_DEPENDS+=	libuim.so:${PORTSDIR}/textproc/uim
+GYP_OPTIONS+=	--noqt
+GYP_DEFINES+=	use_libibus=0 \
+		enable_gtk_renderer=0
+
+PLIST_FILES+=	lib/uim/plugin/libuim-mozc.so \
+		%%DATADIR%%/mozc.scm \
+		%%DATADIR%%/mozc-custom.scm \
+		%%DATADIR%%/mozc-key-custom.scm \
+		%%DATADIR%%/pixmaps/mozc.png \
+		"@exec uim-module-manager --register mozc" \
+		"@unexec uim-module-manager --unregister mozc"
+
+post-extract-uim_mozc:
+	${CP} -a ${WRKDIR}/macuim-${MACUIM_VERSION}/Mozc/uim ${WRKSRC}/unix
+	${REINPLACE_CMD} -e "s|/usr/lib/mozc/mozc_tool|${PREFIX}/bin/mozc_tool|g" \
+		${WRKDIR}/macuim-${MACUIM_VERSION}/Mozc/scm/mozc-custom.scm
+
+post-extract: post-extract-uim_mozc
+
+do-build-uim_mozc:
+	${BUILD_MOZC_CMD_BUILD} \
+		unix/uim/uim.gyp:uim-mozc
+
+do-install-uim_mozc:
+	${MKDIR} \
+		${STAGEDIR}${PREFIX}/lib/uim/plugin
+	${INSTALL_PROGRAM} \
+		${WRKSRC}/out_linux/${BUILD_MODE}/libuim-mozc.so \
+		${STAGEDIR}${PREFIX}/lib/uim/plugin/
+	${MKDIR} \
+		${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} \
+		${WRKDIR}/macuim-${MACUIM_VERSION}/Mozc/scm/mozc.scm \
+		${WRKDIR}/macuim-${MACUIM_VERSION}/Mozc/scm/mozc-custom.scm \
+		${WRKDIR}/macuim-${MACUIM_VERSION}/Mozc/scm/mozc-key-custom.scm \
+		${STAGEDIR}${DATADIR}/
+	${MKDIR} \
+		${STAGEDIR}${DATADIR}/pixmaps
+	${INSTALL_DATA} \
+	    ${WRKSRC}/data/images/product_icon_32bpp-128.png \
+	    ${STAGEDIR}${DATADIR}/pixmaps/mozc.png
+.endif
+
 # fcitx_mozc
 .if ${BUILD_MOZC_LIST:Mfcitx_mozc} == "fcitx_mozc" || make(makesum)
 PATCH_SITES=	http://download.fcitx-im.org/fcitx-mozc/
@@ -298,7 +348,7 @@ post-extract-fcitx_mozc:
 post-extract: post-extract-fcitx_mozc
 
 post-patch-fcitx_mozc:
-	cd ${PATCH_WRKSRC} && ${PATCH} < ${PATCHDIR}/extra-patch-unix_fcitx_fcitx_mozc.cc 
+	cd ${PATCH_WRKSRC} && ${PATCH} < ${PATCHDIR}/extra-patch-unix_fcitx_fcitx_mozc.cc
 
 post-patch: post-patch-fcitx_mozc
 
