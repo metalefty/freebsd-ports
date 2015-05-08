@@ -16,7 +16,7 @@ COMMENT=	Open source Remote Desktop Protocol (RDP) server
 LICENSE=	APACHE20
 
 USES=		autoreconf:build libtool pkgconfig
-USE_XORG=	x11 xfixes
+USE_XORG=	x11 xfixes xrandr
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
