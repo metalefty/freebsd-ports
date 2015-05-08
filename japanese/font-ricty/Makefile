@@ -3,7 +3,7 @@
 
 PORTNAME=	ricty
 PORTVERSION=	3.2.4
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	japanese x11-fonts
 PKGNAMEPREFIX=	ja-font-
 
@@ -20,7 +20,6 @@ USES=		fonts
 USE_GITHUB=	yes
 GH_ACCOUNT=	yascentur
 GH_PROJECT=	Ricty
-GH_COMMIT=	c22daa9
 
 NO_PACKAGE=	redistribution is not allowed
 PKGINSTALL=	${WRKDIR}/pkg-install
