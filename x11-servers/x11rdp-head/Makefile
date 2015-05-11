@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	x11rdp
-PORTVERSION=	0.9.0.b20150311
+PORTVERSION=	0.9.0.b20150318
 #PORTREVISION=	0
 CATEGORIES=	x11-servers
 MASTER_SITES=	https://xrdp.vmeta.jp/pub/xrdp/X11R7.6/:xorg \
@@ -34,13 +34,12 @@ USE_XORG=	damageproto fixesproto fontutil xcmiscproto xtrans bigreqsproto xproto
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_COMMIT=	291cb73
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	4a95950
 
 CONFLICTS_INSTALL=	x11rdp-[0-9]* x11rdp-devel-[0-9]*
 PLIST_FILES=	bin/X11rdp
 X11RDP_XORG_VERSION=	1.9.3
-WRKSRC=		${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}/xorg/X11R7.6/rdp
+WRKSRC=		${WRKDIR}/${GH_PROJECT}-${GH_TAGNAME}/xorg/X11R7.6/rdp
 XORG_WRKSRC=	${WRKDIR}/xorg-server-${X11RDP_XORG_VERSION}
 XORG_TMPBASE=	${WRKDIR}/xorg
 MAKE_ENV+=	X11RDPBASE=${XORG_TMPBASE}
@@ -57,7 +56,7 @@ CONFIGURE_ARGS=	\
 		--with-xkb-output=${XORG_TMPBASE}/share
 
 post-extract:
-	@${MKDIR} ${WRKDIR}/${GH_ACCOUNT}-${GH_PROJECT}-${GH_COMMIT}/xorg/X11R7.6/build_dir
+	@${MKDIR} ${WRKSRC}/../build_dir
 	@${LN} -s ${WRKDIR}/xorg-server-${X11RDP_XORG_VERSION} ${WRKSRC}/../build_dir
 
 post-patch:
