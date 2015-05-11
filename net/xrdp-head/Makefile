@@ -2,11 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20150319
+PORTVERSION=	0.9.0.b20150502
 #PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	net
-MASTER_SITES=	GH
 PKGNAMESUFFIX=	-head
 DIST_SUBDIR?=	${PORTNAME}
 
@@ -20,16 +19,15 @@ USE_XORG=	x11 xfixes xrandr
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
-GH_ACCOUNT=	metalefty
+GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_COMMIT=	2391508
-GH_TAGNAME=	${GH_COMMIT}
+GH_TAGNAME=	8904252
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
-CONFLICTS=	xrdp-[0-9]*
+#CONFLICTS=	xrdp-[0-9]*
 LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 # xrdp v0.7 is not compatible with current net/freerdp (1.0.2)
 #BUILD_DEPENDS+=	freerdp>=1.0.2:${PORTSDIR}/net/freerdp
