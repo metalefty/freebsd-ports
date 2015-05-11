@@ -1,4 +1,4 @@
 SHA256 (xrdp/xorg-server-1.9.3.tar.bz2) = 864831f51e841ff37f2445d1c85b86b559c8860a435fb496aead4f256a2b141d
 SIZE (xrdp/xorg-server-1.9.3.tar.bz2) = 5287061
-SHA256 (xrdp/xrdp-0.9.0.b20150318.tar.gz) = 9cd9a457b2653766feba02edea23a925b478e36ad16237ea6ecc38bb9f6ca480
-SIZE (xrdp/xrdp-0.9.0.b20150318.tar.gz) = 2033125
+SHA256 (xrdp/xrdp-0.9.0.b20150318.tar.gz) = eab3578f01a46d25e15d551a960df1ceb7c36210adbb762ca6dcaa4a709a751f
+SIZE (xrdp/xrdp-0.9.0.b20150318.tar.gz) = 2033062

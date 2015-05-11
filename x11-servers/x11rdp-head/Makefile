@@ -34,7 +34,7 @@ USE_XORG=	damageproto fixesproto fontutil xcmiscproto xtrans bigreqsproto xproto
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_TAGNAME=	4a95950
+GH_TAGNAME=	9c2951f
 
 CONFLICTS_INSTALL=	x11rdp-[0-9]* x11rdp-devel-[0-9]*
 PLIST_FILES=	bin/X11rdp
