@@ -21,7 +21,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_TAGNAME=	8904252
+GH_TAGNAME=	51065f6
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg
