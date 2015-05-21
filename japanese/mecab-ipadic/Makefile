@@ -16,9 +16,9 @@ OPTIONS_DEFAULT=	UTF8
 EUCJP_DESC=	Use EUC-JP as dictionary charset.
 SHIFTJIS_DESC=	Use SHIFT-JIS as dictionary charset.
 UTF8_DESC=	Use UTF-8 as dictionary charset.
-EUCJP_RUN_DEPENDS=	${LOCALBASE}/lib/mecab/dic/ipadic/char.bin:${.CURDIR}/../mecab-ipadic-eucjp
-SHIFTJIS_RUN_DEPENDS=	${LOCALBASE}/lib/mecab/dic/ipadic/char.bin:${.CURDIR}/../mecab-ipadic-sjis
-UTF8_RUN_DEPENDS=	${LOCALBASE}/lib/mecab/dic/ipadic/char.bin:${.CURDIR}/../mecab-ipadic-utf8
+EUCJP_RUN_DEPENDS=	${LOCALBASE}/lib/mecab/dic/ipadic/char.bin:${PORTSDIR}/japanese/mecab-ipadic-eucjp
+SHIFTJIS_RUN_DEPENDS=	${LOCALBASE}/lib/mecab/dic/ipadic/char.bin:${PORTSDIR}/japanese/mecab-ipadic-sjis
+UTF8_RUN_DEPENDS=	${LOCALBASE}/lib/mecab/dic/ipadic/char.bin:${PORTSDIR}/japanese/mecab-ipadic-utf8
 
 do-install:	# empty
 
