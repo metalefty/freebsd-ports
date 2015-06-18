@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20150502
+PORTVERSION=	0.9.0.b20150618
 #PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -13,15 +13,16 @@ MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	Open source Remote Desktop Protocol (RDP) server
 
 LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		autoreconf:build libtool pkgconfig
 USE_XORG=	x11 xfixes xrandr
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
-GH_ACCOUNT=	neutrinolabs
+GH_ACCOUNT=	metalefty
 GH_PROJECT=	xrdp
-GH_TAGNAME=	51065f6
+GH_TAGNAME=	0f8f03e
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg
@@ -35,51 +36,16 @@ LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-message
 
-OPTIONS_DEFINE=	DEBUG SOUND FUSE IPV6
-OPTIONS_DEFAULT=	TIGERVNC
-OPTIONS_RADIO=	XVNC
-OPTIONS_RADIO_XVNC=	REALVNC TIGERVNC TIGHTVNC TRIDIAVNC
-REALVNC_DESC=	Use RealVNC
-TIGERVNC_DESC=	Use TigerVNC (recommended)
-TIGHTVNC_DESC=	Use TightVNC
-TRIDIAVNC_DESC=	Use TridiaVNC
-SOUND_DESC=	Enable sound support via pulseaudio (experimental)
+OPTIONS_DEFINE=	DEBUG FUSE IPV6
+OPTIONS_DEFAULT=
 FUSE_DESC=	Drive redirection via FUSE
 
+IPV6_CONFIGURE_ENABLE=	ipv6
+DEBUG_CONFIGURE_ENABLE=	xrdpdebug
+FUSE_CONFIGURE_ENABLE=	fuse
+
+
 .include <bsd.port.options.mk>
-
-# Which Xserver to use
-.if ${PORT_OPTIONS:MREALVNC}
-RUN_DEPENDS=	Xvnc:${PORTSDIR}/net/vnc
-.endif
-.if ${PORT_OPTIONS:MTIGERVNC}
-RUN_DEPENDS=	Xvnc:${PORTSDIR}/net/tigervnc
-.endif
-.if ${PORT_OPTIONS:MTIGHTVNC}
-RUN_DEPENDS=	Xvnc:${PORTSDIR}/net/tightvnc
-.endif
-.if ${PORT_OPTIONS:MTRIDIAVNC}
-RUN_DEPENDS=	Xvnc:${PORTSDIR}/net/tridiavnc
-.endif
-
-.if ${PORT_OPTIONS:MDEBUG}
-CONFIGURE_ARGS+=	--enable-xrdpdebug
-CFLAGS+=	-DXRDP_DEBUG
-.endif
-
-.if ${PORT_OPTIONS:MSOUND}
-#BUILD_DEPENDS+=	${LOCALBASE}/include/pulse/simple.h:${PORTSDIR}/audio/pulseaudio \
-#		${LOCALBASE}/include/pulse/error.h:${PORTSDIR}/audio/pulseaudio
-#CONFIGURE_ARGS+=	--enable-simplesound
-.endif
-
-.if ${PORT_OPTIONS:MIPV6}
-CONFIGURE_ARGS+=	--enable-ipv6
-.endif
-
-.if ${PORT_OPTIONS:MFUSE}
-CONFIGURE_ARGS+=	--enable-fuse
-.endif
 
 pre-configure:
 	@cd ${WRKSRC} && ./bootstrap
