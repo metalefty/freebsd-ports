@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	ruby-build
-PORTVERSION=	20150506
+PORTVERSION=	20150519
 CATEGORIES=	devel ruby
 
 MAINTAINER=	meta+ports@vmeta.jp
