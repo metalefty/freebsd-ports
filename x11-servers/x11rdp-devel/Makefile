@@ -49,7 +49,7 @@ CONFIGURE_ARGS=	\
 	       	--without-dtrace \
 		--with-dri-driver-path=${LOCALBASE}/lib/dri \
 		--with-sha1=libcrypto \
-		--with-fontrootdir=${LOCALBASE}/lib/X11/fonts \
+		--with-fontrootdir=${LOCALBASE}/share/fonts \
 		--with-xkb-bin-directory=${LOCALBASE}/bin \
 		--with-xkb-path=${LOCALBASE}/share/X11/xkb \
 		--with-xkb-output=${XORG_TMPBASE}/share
