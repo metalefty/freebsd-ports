@@ -7,7 +7,7 @@ CATEGORIES=	x11-servers
 MASTER_SITES=	https://xrdp.vmeta.jp/pub/xrdp/X11R7.6/:xorg \
 		http://server1.xrdp.org/xrdp/X11R7.6/:xorg \
 		GH:x11rdp
-PKGNAMESUFFIX=	-head
+PKGNAMESUFFIX=	-devel
 DISTFILES=	xorg-server-${X11RDP_XORG_VERSION}.tar.bz2:xorg \
 		xrdp-${PORTVERSION}.tar.gz:x11rdp
 DIST_SUBDIR=	xrdp
