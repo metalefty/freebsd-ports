@@ -30,20 +30,21 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
 #CONFLICTS=	xrdp-[0-9]*
 LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
-# xrdp v0.7 is not compatible with current net/freerdp (1.0.2)
-#BUILD_DEPENDS+=	freerdp>=1.0.2:${PORTSDIR}/net/freerdp
-#CONFIGURE_ARGS+=	--enable-freerdp1
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-message
 
-OPTIONS_DEFINE=	DEBUG FUSE IPV6
-OPTIONS_DEFAULT=
+OPTIONS_DEFINE=	DEBUG FUSE FREERDP IPV6 OPUS
+OPTIONS_DEFAULT=	OPUS
+FREERDP_DESC=	Enable FreeRDP support
 FUSE_DESC=	Drive redirection via FUSE
+OPUS_DESC=	Enable Opus audio codec
 
 IPV6_CONFIGURE_ENABLE=	ipv6
 DEBUG_CONFIGURE_ENABLE=	xrdpdebug
 FUSE_CONFIGURE_ENABLE=	fuse
-
+FREERDP_BUILD_DEPENDS=	freerdp>=1.2.0:${PORTSDIR}/net/freerdp
+FREERDP_CONFIGURE_ENABLE=	freerdp1
+OPUS_CONFIGURE_ENABLE=	opus
 
 .include <bsd.port.options.mk>
 
