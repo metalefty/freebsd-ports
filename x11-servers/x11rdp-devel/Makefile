@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	x11rdp
-PORTVERSION=	0.9.0.b20150318
+PORTVERSION=	0.9.0.b20150719
 CATEGORIES=	x11-servers
 MASTER_SITES=	https://xrdp.vmeta.jp/pub/xrdp/X11R7.6/:xorg \
 		http://server1.xrdp.org/xrdp/X11R7.6/:xorg \
@@ -22,7 +22,7 @@ BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/dri.pc:${PORTSDIR}/graphics/dri
 RUN_DEPENDS=	xorg-fonts>=0:${PORTSDIR}/x11-fonts/xorg-fonts \
 		${LOCALBASE}/share/X11/xkb/rules/base:${PORTSDIR}/x11/xkeyboard-config
 
-USES=		gmake pkgconfig perl5
+USES=		gmake perl5 pkgconfig
 USE_AUTOTOOLS+=	autoconf:env
 USE_OPENSSL=	yes
 USE_GL=		gl
@@ -33,7 +33,7 @@ USE_XORG=	damageproto fixesproto fontutil xcmiscproto xtrans bigreqsproto xproto
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_TAGNAME=	9c2951f
+GH_TAGNAME=	dbf959f
 
 CONFLICTS_INSTALL=	x11rdp-[0-9]* x11rdp-devel-[0-9]*
 PLIST_FILES=	bin/X11rdp
