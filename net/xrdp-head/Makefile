@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20150618
+PORTVERSION=	0.9.0.b20150718
 #PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -20,9 +20,9 @@ USE_XORG=	x11 xfixes xrandr
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
-GH_ACCOUNT=	metalefty
+GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_TAGNAME=	0f8f03e
+GH_TAGNAME=	a330789
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg
@@ -45,6 +45,7 @@ FUSE_CONFIGURE_ENABLE=	fuse
 FREERDP_BUILD_DEPENDS=	freerdp>=1.2.0:${PORTSDIR}/net/freerdp
 FREERDP_CONFIGURE_ENABLE=	freerdp1
 OPUS_CONFIGURE_ENABLE=	opus
+OPUS_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
 
 .include <bsd.port.options.mk>
 
