@@ -1,13 +1,13 @@
 # Created by: Koichiro IWAO <meta+ports@vmeta.jp>
 # $FreeBSD$
 
-PORTNAME=       xorg-driver-rdp
-PORTVERSION=	b20150915
+PORTNAME=	xorg-driver-rdp
+PORTVERSION=	b20151205
 CATEGORIES=	x11-drivers
 DIST_SUBDIR=	xrdp
 
-MAINTAINER=     meta+ports@vmeta.jp
-COMMENT=	RDP driver for Xorg
+MAINTAINER=	meta+ports@vmeta.jp
+COMMENT=	X.Org xrdp driver
 
 LICENSE=	MIT
 
@@ -21,7 +21,7 @@ USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xorgxrdp:xorgxrdp xrdp
-GH_TAGNAME=	884b347:xorgxrdp f49e205
+GH_TAGNAME=	3379d2c:xorgxrdp ee89984
 GNU_CONFIGURE=	yes
 
 CFLAGS+=	-I${LOCALBASE}/include
