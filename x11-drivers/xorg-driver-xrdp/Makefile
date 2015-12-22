@@ -1,7 +1,7 @@
 # Created by: Koichiro IWAO <meta+ports@vmeta.jp>
 # $FreeBSD$
 
-PORTNAME=	xorg-driver-rdp
+PORTNAME=	xorg-driver-xrdp
 PORTVERSION=	b20151205
 CATEGORIES=	x11-drivers
 DIST_SUBDIR=	xrdp
