@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	tigervnc
-PORTVERSION=	1.5.0
+PORTVERSION=	1.6.0
 DISTVERSIONPREFIX=	v
-PORTREVISION=	1
 CATEGORIES=	net x11-servers
+PKGNAMESUFFIX=	-devel
 
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	High-performance, platform-neutral implementation of VNC
