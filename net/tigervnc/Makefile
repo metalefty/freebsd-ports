@@ -2,9 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	tigervnc
-PORTVERSION=	1.5.0
+PORTVERSION=	1.6.0
 DISTVERSIONPREFIX=	v
-PORTREVISION=	1
 CATEGORIES=	net x11-servers
 
 MAINTAINER=	meta+ports@vmeta.jp
