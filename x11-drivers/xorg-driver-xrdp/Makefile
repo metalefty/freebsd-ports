@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xorg-driver-xrdp
-PORTVERSION=	b20151205
+PORTVERSION=	b20160115
 CATEGORIES=	x11-drivers
 DIST_SUBDIR=	xrdp
 
@@ -15,13 +15,13 @@ BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:${PORTSDIR}/x11-servers/x
 		nasm:${PORTSDIR}/devel/nasm
 
 USES=		libtool:build pkgconfig
-USE_XORG=	glproto inputproto randrproto renderproto resourceproto scrnsaverproto xf86driproto
+USE_XORG=	glproto inputproto presentproto randrproto renderproto resourceproto scrnsaverproto xf86driproto
 USE_AUTOTOOLS=	autoconf automake
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xorgxrdp:xorgxrdp xrdp
-GH_TAGNAME=	3379d2c:xorgxrdp ee89984
+GH_TAGNAME=	43cdfda:xorgxrdp 9c48b7bc
 GNU_CONFIGURE=	yes
 
 CFLAGS+=	-I${LOCALBASE}/include
