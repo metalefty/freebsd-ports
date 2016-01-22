@@ -23,6 +23,7 @@ GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xorgxrdp:xorgxrdp xrdp
 GH_TAGNAME=	43cdfda:xorgxrdp 9c48b7bc
 GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
 
 CFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-I${LOCALBASE}/lib
