@@ -9,6 +9,8 @@ MASTER_SITES=	RG
 MAINTAINER=	meta+ports@vmeta.jp
 COMMENT=	Deferred for Delayer
 
+RUN_DEPENDS=	rubygem-delayer>=:${PORTSDIR}/devel/rubygem-delayer
+
 LICENSE=	MIT
 
 NO_ARCH=	yes
