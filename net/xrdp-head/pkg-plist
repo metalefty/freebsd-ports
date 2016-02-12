@@ -56,10 +56,10 @@ etc/rc.d/xrdp
 %%ETCDIR%%/km-e0200411.ini
 %%ETCDIR%%/km-e0210411.ini
 %%ETCDIR%%/pulse/default.pa
-@unexec if cmp -s %D/etc/xrdp/sesman.ini.sample %D/etc/xrdp/sesman.ini; then rm -f %D/etc/xrdp/sesman.ini; fi
-@unexec if cmp -s %D/etc/xrdp/startwm.sh.sample %D/etc/xrdp/startwm.sh; then rm -f %D/etc/xrdp/startwm.sh; fi
-@unexec if cmp -s %D/etc/xrdp/xrdp.ini.sample %D/etc/xrdp/xrdp.ini; then rm -f %D/etc/xrdp/xrdp.ini; fi
-@unexec if cmp -s %D/etc/xrdp/xrdp_keyboard.ini.sample %D/etc/xrdp/xrdp_keyboard.ini; then rm -f %D/etc/xrdp/xrdp_keyboard.ini; fi
+@postunexec if cmp -s %D/etc/xrdp/sesman.ini.sample %D/etc/xrdp/sesman.ini; then rm -f %D/etc/xrdp/sesman.ini; fi
+@postunexec if cmp -s %D/etc/xrdp/startwm.sh.sample %D/etc/xrdp/startwm.sh; then rm -f %D/etc/xrdp/startwm.sh; fi
+@postunexec if cmp -s %D/etc/xrdp/xrdp.ini.sample %D/etc/xrdp/xrdp.ini; then rm -f %D/etc/xrdp/xrdp.ini; fi
+@postunexec if cmp -s %D/etc/xrdp/xrdp_keyboard.ini.sample %D/etc/xrdp/xrdp_keyboard.ini; then rm -f %D/etc/xrdp/xrdp_keyboard.ini; fi
 @sample %%ETCDIR%%/sesman.ini.sample
 @sample %%ETCDIR%%/startwm.sh.sample
 @sample %%ETCDIR%%/xrdp.ini.sample
