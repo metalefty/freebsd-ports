@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20160212
+PORTVERSION=	0.9.0.b20160215
 #PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -22,7 +22,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_TAGNAME=	ac901fd
+GH_TAGNAME=	3934be9
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg
