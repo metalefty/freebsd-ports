@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20160224
+PORTVERSION=	0.9.0.b20160225
 #PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -22,7 +22,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_TAGNAME=	cfbb00c
+GH_TAGNAME=	5af0d06
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg
@@ -31,7 +31,7 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 #CONFLICTS=	xrdp-[0-9]*
 LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 INSTALL_TARGET=	install-strip
-SUB_FILES=	pkg-message
+SUB_FILES=	pkg-install pkg-message
 
 OPTIONS_DEFINE=	DEBUG FUSE IPV6 OPUS
 OPTIONS_DEFAULT=	OPUS
@@ -50,6 +50,7 @@ pre-configure:
 	@cd ${WRKSRC} && ./bootstrap
 
 post-stage:
+	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/rsakeys.ini
 .for f in sesman.ini startwm.sh xrdp.ini xrdp_keyboard.ini
 	@${MV} ${STAGEDIR}${PREFIX}/etc/xrdp/$f ${STAGEDIR}${PREFIX}/etc/xrdp/$f.sample
 .endfor

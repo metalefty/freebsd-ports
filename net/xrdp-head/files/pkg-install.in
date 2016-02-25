@@ -1,0 +1,22 @@
+#!/bin/sh
+# vim:ts=4
+
+if [ $# -ne 2 ]; then
+	echo "usage: $0 distname { PRE-INSTALL | POST-INSTALL }" >&2
+	exit 1
+fi
+
+case $2 in
+	PRE-INSTALL)
+		: nothing to do here
+        ;;
+	POST-INSTALL)
+		%%PREFIX%%/bin/xrdp-keygen xrdp %%PREFIX%%/etc/xrdp/rsakeys.ini
+		;;
+	*)
+		echo "usage: $0 distname { PRE-INSTALL | POST-INSTALL }" >&2
+		exit 1
+		;;
+esac
+
+exit 0
