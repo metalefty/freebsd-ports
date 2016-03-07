@@ -14,6 +14,8 @@ case $2 in
         RSAKEYS=%%PREFIX%%/etc/xrdp/rsakeys.ini
         PRIVATEKEY=%%PREFIX%%/etc/xrdp/key.pem
         CERTIFICATE=%%PREFIX%%/etc/xrdp/cert.pem
+        # make sure rsakeys and certificates are private
+        umask 077
         # generate rsakeys.ini
         [ -e "$RSAKEYS" ] || %%PREFIX%%/bin/xrdp-keygen xrdp "$RSAKEYS"
         # generate self-signed certificate
