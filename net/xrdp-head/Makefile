@@ -46,6 +46,9 @@ OPUS_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
 
 .include <bsd.port.options.mk>
 
+post-patch:
+	@${REINPLACE_CMD} -e "s|security_layer=rdp|security_layer=tls|"  ${WRKSRC}/xrdp/xrdp.ini
+
 pre-configure:
 	@cd ${WRKSRC} && ./bootstrap
 
