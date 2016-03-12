@@ -3,7 +3,7 @@
 
 PORTNAME=	xrdp
 PORTVERSION=	0.9.0.b20160302
-#PORTREVISION=	0
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-head
@@ -21,11 +21,11 @@ GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
-GH_PROJECT=	xrdp
-GH_TAGNAME=	cdb967c
+GH_PROJECT=	xrdp librfxcodec:librfxcodec
+GH_TAGNAME=	cdb967c 61f6e92:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
-		--enable-jpeg
+		--enable-jpeg --enable-rfxcodec
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
 #CONFLICTS=	xrdp-[0-9]*
@@ -46,6 +46,10 @@ OPUS_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
 
 .include <bsd.port.options.mk>
 
+post-extract:
+	# librfxcodec is provided as git submodule
+	@${CP} -r ${WRKSRC_librfxcodec}/ ${WRKSRC}/librfxcodec/
+
 post-patch:
 	@${REINPLACE_CMD} \
 		-e "s|^security_layer=rdp|security_layer=tls|" \
@@ -57,6 +61,10 @@ post-patch:
 
 pre-configure:
 	@cd ${WRKSRC} && ./bootstrap
+
+pre-build:
+	# librfxcodec should be built before xrdp
+	@cd ${WRKSRC}/librfxcodec/ && ${MAKE_CMD}
 
 post-stage:
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/rsakeys.ini

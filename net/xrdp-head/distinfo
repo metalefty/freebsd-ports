@@ -1,2 +1,4 @@
 SHA256 (xrdp/neutrinolabs-xrdp-0.9.0.b20160302-cdb967c_GH0.tar.gz) = d6067284bf3ba6fbe46c5bf46d2b1264514832e27dffdbc66025cdf084f7d6fd
 SIZE (xrdp/neutrinolabs-xrdp-0.9.0.b20160302-cdb967c_GH0.tar.gz) = 1835649
+SHA256 (xrdp/neutrinolabs-librfxcodec-61f6e92_GH0.tar.gz) = cce2c91aec2e7363516b086036b8799b539f47a6c5f04d03106c93ee0bbc0c28
+SIZE (xrdp/neutrinolabs-librfxcodec-61f6e92_GH0.tar.gz) = 16763
