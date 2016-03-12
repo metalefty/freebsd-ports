@@ -47,7 +47,13 @@ OPUS_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
 .include <bsd.port.options.mk>
 
 post-patch:
-	@${REINPLACE_CMD} -e "s|security_layer=rdp|security_layer=tls|"  ${WRKSRC}/xrdp/xrdp.ini
+	@${REINPLACE_CMD} \
+		-e "s|^security_layer=rdp|security_layer=tls|" \
+		-e "s|^autorun=xrdp1|autorun=Session manager|" \
+		${WRKSRC}/xrdp/xrdp.ini
+	@${REINPLACE_CMD} \
+		-e "s|^PULSE_SCRIPT=/etc/xrdp/pulse/default.pa|PULSE_SCRIPT=${PREFIX}/etc/xrdp/pulse/default.pa|" \
+		${WRKSRC}/sesman/sesman.ini
 
 pre-configure:
 	@cd ${WRKSRC} && ./bootstrap
