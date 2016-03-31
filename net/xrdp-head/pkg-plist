@@ -3,6 +3,8 @@ bin/xrdp-genkeymap
 bin/xrdp-keygen
 bin/xrdp-sesadmin
 bin/xrdp-sesrun
+lib/pulse-%%PULSE_VERSION%%/modules/module-xrdp-sink.so
+lib/pulse-%%PULSE_VERSION%%/modules/module-xrdp-source.so
 lib/xrdp/libcommon.a
 lib/xrdp/libcommon.so
 lib/xrdp/libcommon.so.0

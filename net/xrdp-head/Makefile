@@ -3,7 +3,7 @@
 
 PORTNAME=	xrdp
 PORTVERSION=	0.9.0.b20160317
-PORTREVISION=	1
+PORTREVISION=	2
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-head
@@ -14,6 +14,9 @@ COMMENT=	Open source Remote Desktop Protocol (RDP) server
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/COPYING
+
+# pulseaudio's built source is required for audio redirection
+BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:build
 
 USES=		autoreconf:build libtool pkgconfig
 USE_XORG=	x11 xfixes xrandr
@@ -32,6 +35,7 @@ CPPFLAGS+=	-I${LOCALBASE}/include
 LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-install pkg-message
+PLIST_SUB=	PULSE_VERSION=${PULSE_VERSION}
 
 OPTIONS_DEFINE=	DEBUG FUSE IPV6 OPUS
 OPTIONS_DEFAULT=	OPUS
@@ -43,6 +47,10 @@ DEBUG_CONFIGURE_ENABLE=	xrdpdebug
 FUSE_CONFIGURE_ENABLE=	fuse
 OPUS_CONFIGURE_ENABLE=	opus
 OPUS_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
+
+# don't forget to increase PORTREVISION after pulseaudio update
+PULSE_VERSION=	8.0
+PULSE_WRKSRC=	${MAKE} -C ${PORTSDIR}/audio/pulseaudio -VWRKSRC
 
 .include <bsd.port.options.mk>
 
@@ -58,6 +66,10 @@ post-patch:
 	@${REINPLACE_CMD} \
 		-e "s|^PULSE_SCRIPT=/etc/xrdp/pulse/default.pa|PULSE_SCRIPT=${PREFIX}/etc/xrdp/pulse/default.pa|" \
 		${WRKSRC}/sesman/sesman.ini
+	@${REINPLACE_CMD} \
+		-e "s|^PULSE_DIR = .*|PULSE_DIR = `${PULSE_WRKSRC}`|" \
+		-e "s|-Wall -O2|-Wall -O2 -I${LOCALBASE}/include|" \
+		${WRKSRC}/sesman/chansrv/pulse/Makefile
 
 pre-configure:
 	@cd ${WRKSRC} && ./bootstrap
@@ -65,6 +77,19 @@ pre-configure:
 pre-build:
 	# librfxcodec should be built before xrdp
 	@cd ${WRKSRC}/librfxcodec/ && ${MAKE_CMD}
+
+post-build:
+	# build pulseaudio module
+	@${CP} -r "`${PULSE_WRKSRC}`" ${WRKDIR}
+	@cd ${WRKSRC} && ${MAKE_CMD} -C sesman/chansrv/pulse
+
+post-install:
+	# install pulseaudio module
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
+.for f in module-xrdp-sink.so module-xrdp-source.so
+	${CP} ${WRKSRC}/sesman/chansrv/pulse/$f \
+		${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
+.endfor
 
 post-stage:
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/rsakeys.ini
