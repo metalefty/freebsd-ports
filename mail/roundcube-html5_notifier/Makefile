@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	html5_notifier
-PORTVERSION=	0.5.2
 DISTVERSIONPREFIX=	v
+PORTVERSION=	0.6.2
 CATEGORIES=	mail
 PKGNAMEPREFIX=	roundcube-
 
@@ -16,7 +16,7 @@ RUN_DEPENDS=	roundcube>=1.0:mail/roundcube
 BUILD_DEPENDS=	roundcube>=1.0:mail/roundcube
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	kitist
+GH_ACCOUNT=	stremlau
 
 NO_BUILD=	yes
 NO_ARCH=	yes
