@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mikutter
-PORTVERSION=	3.4.0
+PORTVERSION=	3.4.1
 CATEGORIES=	net-im ruby
 MASTER_SITES=	http://mikutter.hachune.net/bin/ \
 		LOCAL/tota/${PORTNAME}
@@ -42,6 +42,7 @@ NO_ARCH=	yes
 USE_RUBY=	yes
 USES=	shebangfix
 NO_BUILD=	yes
+
 
 SHEBANG_FILES=	mikutter.rb \
 		core/miku/miku.rb \
