@@ -29,8 +29,17 @@ CFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-I${LOCALBASE}/lib
 WRKSRC=		${WRKDIR}/xrdp-${GH_TAGNAME}/xorgxrdp
 
+OPTIONS_DEFINE=	DEBUG
+
+.include <bsd.port.options.mk>
+
 post-extract:
 	${CP} -a ${WRKSRC_xorgxrdp}/ ${WRKSRC}
+
+post-patch:
+.if ${PORT_OPTIONS:MDEBUG}
+	${FIND} ${WRKSRC} -type f | ${XARGS} ${REINPLACE_CMD} -e 's|#define LOG_LEVEL [0-9]*|#define LOG_LEVEL 20|'
+.endif
 
 pre-configure:
 	@cd ${WRKSRC} && ./bootstrap
