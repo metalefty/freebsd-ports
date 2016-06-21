@@ -11,8 +11,8 @@ COMMENT=	X.Org xrdp driver
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:${PORTSDIR}/x11-servers/xorg-server \
-		nasm:${PORTSDIR}/devel/nasm
+BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:x11-servers/xorg-server \
+		nasm:devel/nasm
 
 USES=		libtool:build pkgconfig
 USE_XORG=	glproto inputproto presentproto randrproto renderproto resourceproto scrnsaverproto xf86driproto
