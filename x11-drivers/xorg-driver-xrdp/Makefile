@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xorg-driver-xrdp
-PORTVERSION=	b20160203
+PORTVERSION=	b20160302
 CATEGORIES=	x11-drivers
 DIST_SUBDIR=	xrdp
 
@@ -21,7 +21,7 @@ USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xorgxrdp:xorgxrdp xrdp
-GH_TAGNAME=	f745376:xorgxrdp a25e5e9
+GH_TAGNAME=	68412e5:xorgxrdp 703fedd
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 
