@@ -3,20 +3,19 @@
 
 PORTNAME=	ricty
 PORTVERSION=	3.2.4
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	japanese x11-fonts
 PKGNAMEPREFIX=	ja-font-
 
 MAINTAINER?=	meta+ports@vmeta.jp
 COMMENT?=	Ricty - fonts for programming
 
-RUN_DEPENDS=	fc-cache:${PORTSDIR}/x11-fonts/fontconfig
-BUILD_DEPENDS=	${LOCALBASE}/share/fonts/inconsolata/Inconsolata.otf:${PORTSDIR}/x11-fonts/inconsolata-ttf \
-		${LOCALBASE}/share/fonts/TTF/migu-1m-regular.ttf:${PORTSDIR}/japanese/font-migu \
-		${LOCALBASE}/share/fonts/TTF/migu-1m-bold.ttf:${PORTSDIR}/japanese/font-migu \
-		fontforge:${PORTSDIR}/print/fontforge
+BUILD_DEPENDS=	${LOCALBASE}/share/fonts/inconsolata/Inconsolata.otf:x11-fonts/inconsolata-ttf \
+		${LOCALBASE}/share/fonts/TTF/migu-1m-regular.ttf:japanese/font-migu \
+		${LOCALBASE}/share/fonts/TTF/migu-1m-bold.ttf:japanese/font-migu \
+		fontforge:print/fontforge
 
-USES=		fonts
+USES=		fonts:fc
 USE_GITHUB=	yes
 GH_ACCOUNT=	yascentur
 GH_PROJECT=	Ricty
@@ -46,7 +45,7 @@ SUB_LIST+=	DISCORD="" RICTY=\#
 .endif
 
 .if ${PORT_OPTIONS:MDISCORD}
-RUN_DEPENDS+=	${DATADIR}/RictyDiscord-Regular.ttf:${PORTSDIR}/japanese/font-ricty-discord
+RUN_DEPENDS+=	${DATADIR}/RictyDiscord-Regular.ttf:japanese/font-ricty-discord
 .endif
 
 do-build:
