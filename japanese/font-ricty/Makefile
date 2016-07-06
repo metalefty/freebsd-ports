@@ -3,7 +3,7 @@
 
 PORTNAME=	ricty
 PORTVERSION=	3.2.4
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	japanese x11-fonts
 PKGNAMEPREFIX=	ja-font-
 MASTER_SITES=	http://www.rs.tus.ac.jp/yyusa/ricty/
