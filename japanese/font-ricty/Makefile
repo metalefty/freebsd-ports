@@ -6,6 +6,9 @@ PORTVERSION=	3.2.4
 PORTREVISION=	4
 CATEGORIES=	japanese x11-fonts
 PKGNAMEPREFIX=	ja-font-
+MASTER_SITES=	http://www.rs.tus.ac.jp/yyusa/ricty/
+DISTFILES=	ricty_generator-${PORTVERSION}.sh
+EXTRACT_ONLY=	# nothing
 
 MAINTAINER?=	meta+ports@vmeta.jp
 COMMENT?=	Ricty - fonts for programming
@@ -16,9 +19,6 @@ BUILD_DEPENDS=	${LOCALBASE}/share/fonts/inconsolata/Inconsolata.otf:x11-fonts/in
 		fontforge:print/fontforge
 
 USES=		fonts:fc
-USE_GITHUB=	yes
-GH_ACCOUNT=	yascentur
-GH_PROJECT=	Ricty
 
 NO_PACKAGE=	redistribution is not allowed
 PKGINSTALL=	${WRKDIR}/pkg-install
@@ -28,10 +28,9 @@ SUB_FILES=	pkg-install
 FONTNAME=	TTF
 
 .if !defined(PKGNAMESUFFIX)
-OPTIONS_DEFINE=	DISCORD DOCS
+OPTIONS_DEFINE=	DISCORD
 DISCORD_DESC=	Install Ricty-Discord
 OPTIONS_DEFAULT=	DISCORD
-PORTDOCS=	README.md
 .endif
 
 .include <bsd.port.options.mk>
@@ -47,6 +46,10 @@ SUB_LIST+=	DISCORD="" RICTY=\#
 .if ${PORT_OPTIONS:MDISCORD}
 RUN_DEPENDS+=	${DATADIR}/RictyDiscord-Regular.ttf:japanese/font-ricty-discord
 .endif
+
+do-extract:
+	@${MKDIR} ${WRKSRC}
+	@${CP} ${DISTDIR}/ricty_generator-${PORTVERSION}.sh ${WRKSRC}/ricty_generator.sh
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
@@ -82,10 +85,6 @@ do-install:
 	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/20-unhint-${PORTNAME}discord.conf
 	${LN} -s -f ../conf.avail/62-fonts-${PORTNAME}discord.conf \
 	    ${STAGEDIR}${PREFIX}/etc/fonts/conf.d/62-fonts-${PORTNAME}discord.conf
-.endif
-.if ${PORT_OPTIONS:MDOCS} && defined(PORTDOCS)
-	${MKDIR} ${STAGEDIR}${DOCSDIR}
-	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
 .endif
 
 .include <bsd.port.mk>
