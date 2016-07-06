@@ -5,13 +5,16 @@ PORTNAME=	ricty
 PORTVERSION=	3.2.4
 PORTREVISION=	5
 CATEGORIES=	japanese x11-fonts
-PKGNAMEPREFIX=	ja-font-
 MASTER_SITES=	http://www.rs.tus.ac.jp/yyusa/ricty/
-DISTFILES=	ricty_generator-${PORTVERSION}.sh
+PKGNAMEPREFIX=	ja-font-
+DISTFILES=	ricty_generator-${PORTVERSION}.sh ricty_discord_converter.pe
+DIST_SUBDIR=	${PORTNAME}
 EXTRACT_ONLY=	# nothing
 
 MAINTAINER?=	meta+ports@vmeta.jp
 COMMENT?=	Ricty - fonts for programming
+
+LICENSE=	OFL11
 
 BUILD_DEPENDS=	${LOCALBASE}/share/fonts/inconsolata/Inconsolata.otf:x11-fonts/inconsolata-ttf \
 		${LOCALBASE}/share/fonts/TTF/migu-1m-regular.ttf:japanese/font-migu \
@@ -49,7 +52,8 @@ RUN_DEPENDS+=	${DATADIR}/RictyDiscord-Regular.ttf:japanese/font-ricty-discord
 
 do-extract:
 	@${MKDIR} ${WRKSRC}
-	@${CP} ${DISTDIR}/ricty_generator-${PORTVERSION}.sh ${WRKSRC}/ricty_generator.sh
+	@${CP} ${DISTDIR}/${DIST_SUBDIR}/ricty_generator-${PORTVERSION}.sh ${WRKSRC}/ricty_generator.sh
+	@${CP} ${DISTDIR}/${DIST_SUBDIR}/ricty_discord_converter.pe ${WRKSRC}/ricty_discord_patch.pe
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
