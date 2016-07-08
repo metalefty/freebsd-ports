@@ -23,8 +23,8 @@ RUN_DEPENDS=	${LOCALBASE}/share/X11/xkb/rules/base:x11/xkeyboard-config \
 		xkbcomp:x11/xkbcomp
 
 CONFLICTS=	tigervnc-[0-9]* \
-		tridiavnc-[0-9]* \
 		tightvnc-[0-9]* \
+		tridiavnc-[0-9]* \
 		vnc-[0-9]*
 
 USES=		autoreconf:build cmake cpe gmake iconv jpeg libtool pkgconfig \
