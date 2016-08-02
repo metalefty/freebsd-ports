@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20160518
+PORTVERSION=	0.9.0.b20160727
 #PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -18,41 +18,47 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 # pulseaudio's built source is required for audio redirection
 BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:build
 
-USES=		autoreconf:build libtool pkgconfig
-USE_XORG=	x11 xfixes xrandr
+USES=		autoreconf:build jpeg libtool pkgconfig ssl
+USE_XORG=	ice sm x11 xfixes xrandr
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec
-GH_TAGNAME=	b38dcf1 3f137a6:librfxcodec
+GH_TAGNAME=	f2addd3 3f137a6:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg --enable-rfxcodec
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
 #CONFLICTS=	xrdp-[0-9]*
-LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-install pkg-message
 PLIST_SUB=	PULSE_VERSION=${PULSE_VERSION}
 
-OPTIONS_DEFINE=	DEBUG FUSE IPV6 OPUS
-OPTIONS_DEFAULT=	OPUS
+OPTIONS_DEFINE=	DEBUG FUSE IPV6 MP3LAME OPUS
+OPTIONS_DEFAULT=	OPUS MP3LAME
 FUSE_DESC=	Drive redirection via FUSE
+MP3LAME_DESC=	Enable MP3 Lame audio codec
 OPUS_DESC=	Enable Opus audio codec
 
 IPV6_CONFIGURE_ENABLE=	ipv6
 DEBUG_CONFIGURE_ENABLE=	xrdpdebug
 FUSE_CONFIGURE_ENABLE=	fuse
+MP3LAME_CONFIGURE_ENABLE=	mp3lame
+MP3LAME_LIB_DEPENDS=	libmp3lame.so:audio/lame
 OPUS_CONFIGURE_ENABLE=	opus
-OPUS_LIB_DEPENDS=	libopus.so:${PORTSDIR}/audio/opus
+OPUS_LIB_DEPENDS=	libopus.so:audio/opus
 
 # don't forget to increase PORTREVISION after pulseaudio update
 PULSE_VERSION=	8.0
 PULSE_WRKSRC=	${MAKE} -C ${PORTSDIR}/audio/pulseaudio -VWRKSRC
 
 .include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MFUSE}
+USES+=	fuse
+.endif
 
 post-extract:
 	# librfxcodec is provided as git submodule
