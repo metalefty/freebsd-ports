@@ -76,8 +76,8 @@ post-patch:
 
 # confiure xorg-server-1.9.3
 post-configure:
-	@cd ${XORG_WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${AUTORECONF} -fiv
-	@cd ${XORG_WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ./configure ${CONFIGURE_ARGS}
+	@cd ${XORG_WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${MAKE_ENV} ${AUTORECONF} -fiv
+	@cd ${XORG_WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${MAKE_ENV} ./configure ${CONFIGURE_ARGS}
 
 # build & install xorg into working directory
 pre-build:
