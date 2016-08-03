@@ -1,5 +1,7 @@
 bin/rbenv
 bin/ruby-local-exec
+%%ETCDIR%%.d/exec/gem-rehash.bash
+%%ETCDIR%%.d/exec/gem-rehash/rubygems_plugin.rb
 libexec/rbenv
 libexec/rbenv---version
 libexec/rbenv-commands
