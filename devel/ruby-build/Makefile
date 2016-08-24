@@ -12,10 +12,11 @@ COMMENT=	Compile and install different ruby versions
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-RUN_DEPENDS=	curl:ftp/curl
-
-USES=		gmake
-USE_AUTOTOOLS=	autoconf:env
+# ruby-build builds Ruby so these are needed at run-time.
+# warings by portlint are not correct. keep this.
+RUN_DEPENDS=	autoconf>0:devel/autoconf \
+		curl:ftp/curl \
+		gmake:devel/gmake
 
 OPTIONS_DEFINE=	RBENV
 RBENV_DESC=	Install rbenv for installation support
