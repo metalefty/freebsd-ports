@@ -14,9 +14,8 @@ LICENSE=	MIT
 BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:x11-servers/xorg-server \
 		nasm:devel/nasm
 
-USES=		libtool:build pkgconfig
+USES=		autoreconf libtool:build pkgconfig
 USE_XORG=	glproto inputproto presentproto randrproto renderproto resourceproto scrnsaverproto xf86driproto
-USE_AUTOTOOLS=	autoconf automake
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
