@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20160813
+PORTVERSION=	0.9.0.b20160826
 #PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -25,7 +25,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec
-GH_TAGNAME=	f4f23b0 3f137a6:librfxcodec
+GH_TAGNAME=	8f747e3 3f137a6:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg --enable-rfxcodec
@@ -93,7 +93,7 @@ post-install:
 	# install pulseaudio module
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
 .for f in module-xrdp-sink.so module-xrdp-source.so
-	${CP} ${WRKSRC}/sesman/chansrv/pulse/$f \
+	${INSTALL_LIB} -m 0755 ${WRKSRC}/sesman/chansrv/pulse/$f \
 		${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
 .endfor
 
