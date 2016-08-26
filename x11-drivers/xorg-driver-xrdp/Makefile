@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xorg-driver-xrdp
-PORTVERSION=	b20160203
+PORTVERSION=	b20160805
 CATEGORIES=	x11-drivers
 DIST_SUBDIR=	xrdp
 
@@ -11,17 +11,16 @@ COMMENT=	X.Org xrdp driver
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:${PORTSDIR}/x11-servers/xorg-server \
-		nasm:${PORTSDIR}/devel/nasm
+BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:x11-servers/xorg-server \
+		nasm:devel/nasm
 
-USES=		libtool:build pkgconfig
+USES=		autoreconf libtool:build pkgconfig
 USE_XORG=	glproto inputproto presentproto randrproto renderproto resourceproto scrnsaverproto xf86driproto
-USE_AUTOTOOLS=	autoconf automake
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xorgxrdp:xorgxrdp xrdp
-GH_TAGNAME=	f745376:xorgxrdp a25e5e9
+GH_TAGNAME=	822e3b8:xorgxrdp e28f529
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 
@@ -29,8 +28,17 @@ CFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-I${LOCALBASE}/lib
 WRKSRC=		${WRKDIR}/xrdp-${GH_TAGNAME}/xorgxrdp
 
+OPTIONS_DEFINE=	DEBUG
+
+.include <bsd.port.options.mk>
+
 post-extract:
 	${CP} -a ${WRKSRC_xorgxrdp}/ ${WRKSRC}
+
+post-patch:
+.if ${PORT_OPTIONS:MDEBUG}
+	${FIND} ${WRKSRC} -type f | ${XARGS} ${REINPLACE_CMD} -e 's|#define LOG_LEVEL [0-9]*|#define LOG_LEVEL 20|'
+.endif
 
 pre-configure:
 	@cd ${WRKSRC} && ./bootstrap
