@@ -28,7 +28,7 @@ case $2 in
                  -nodes \
                  -out "$CERTIFICATE" \
                  -days 365 \
-                 -subj "/C=AU/ST=Some-State/O=Internet Widgits Pty Ltd/CN=$(hostname)"
+                 -subj "/CN=$(hostname)"
         ;;
     *)
         echo "usage: $0 distname { PRE-INSTALL | POST-INSTALL }" >&2
