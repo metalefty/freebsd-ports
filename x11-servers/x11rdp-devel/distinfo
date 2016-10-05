@@ -1,4 +1,7 @@
+TIMESTAMP = 1475633474
 SHA256 (xrdp/xorg-server-1.9.3.tar.bz2) = 864831f51e841ff37f2445d1c85b86b559c8860a435fb496aead4f256a2b141d
 SIZE (xrdp/xorg-server-1.9.3.tar.bz2) = 5287061
-SHA256 (xrdp/xrdp-0.9.0.b20150719.tar.gz) = bf44bff42ab0f3b8d4e2fe405a7e4b26dbbd4720087d8eda46d766a22f997f87
-SIZE (xrdp/xrdp-0.9.0.b20150719.tar.gz) = 1991504
+SHA256 (xrdp/xrdp-0.9.0.b20160902.tar.gz) = 2c2415163a8ec859eef1d137adc55247a8ceeeea95d26f011d7439f9754194b3
+SIZE (xrdp/xrdp-0.9.0.b20160902.tar.gz) = 1866522
+SHA256 (xrdp/neutrinolabs-xrdp-0.9.0.b20160902-bc37e5a_GH0.tar.gz) = 2c2415163a8ec859eef1d137adc55247a8ceeeea95d26f011d7439f9754194b3
+SIZE (xrdp/neutrinolabs-xrdp-0.9.0.b20160902-bc37e5a_GH0.tar.gz) = 1866522
