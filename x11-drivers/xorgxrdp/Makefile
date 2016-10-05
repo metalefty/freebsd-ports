@@ -7,7 +7,7 @@ CATEGORIES=	x11-drivers
 DIST_SUBDIR=	xrdp
 
 MAINTAINER=	meta+ports@vmeta.jp
-COMMENT=	X.Org xrdp driver
+COMMENT=	X.Org driver enabling use through an RDP session with xrdp
 
 LICENSE=	MIT
 
