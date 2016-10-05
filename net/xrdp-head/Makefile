@@ -3,7 +3,6 @@
 
 PORTNAME=	xrdp
 PORTVERSION=	0.9.0.b20161004
-#PORTREVISION=	0
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-head
@@ -31,16 +30,16 @@ CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg --enable-rfxcodec
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
-#CONFLICTS=	xrdp-[0-9]*
+CONFLICTS=	xrdp-[0-9]*
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-install pkg-message
 PLIST_SUB=	PULSE_VERSION=${PULSE_VERSION}
 
 OPTIONS_DEFINE=	DEBUG FUSE IPV6 MP3LAME OPUS
 OPTIONS_DEFAULT=	OPUS MP3LAME
-FUSE_DESC=	Drive redirection via FUSE
-MP3LAME_DESC=	Enable MP3 Lame audio codec
-OPUS_DESC=	Enable Opus audio codec
+FUSE_DESC=	Enable drive redirection via FUSE (experimental)
+MP3LAME_DESC=	Enable MP3 Lame for audio redirection
+OPUS_DESC=	Enable Opus for audio redirection
 
 IPV6_CONFIGURE_ENABLE=	ipv6
 DEBUG_CONFIGURE_ENABLE=	xrdpdebug
