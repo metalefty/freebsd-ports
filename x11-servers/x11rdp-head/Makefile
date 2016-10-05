@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	x11rdp
-PORTVERSION=	0.9.0.b20160714
+PORTVERSION=	0.9.0.b20160902
 CATEGORIES=	x11-servers
 MASTER_SITES=	https://xrdp.vmeta.jp/pub/xrdp/X11R7.6/:xorg \
 		http://server1.xrdp.org/xrdp/X11R7.6/:xorg \
@@ -32,7 +32,7 @@ USE_XORG=	damageproto fixesproto fontutil xcmiscproto xtrans bigreqsproto xproto
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp
-GH_TAGNAME=	eed0227
+GH_TAGNAME=	bc37e5a
 
 CONFLICTS_INSTALL=	x11rdp-[0-9]* x11rdp-devel-[0-9]*
 PLIST_FILES=	bin/X11rdp
