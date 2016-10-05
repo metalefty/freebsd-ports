@@ -50,6 +50,7 @@ etc/rc.d/xrdp
 %%ETCDIR%%/km-0419.ini
 %%ETCDIR%%/km-041d.ini
 %%ETCDIR%%/km-0807.ini
+%%ETCDIR%%/km-0809.ini
 %%ETCDIR%%/km-080c.ini
 %%ETCDIR%%/km-0813.ini
 %%ETCDIR%%/km-0816.ini
