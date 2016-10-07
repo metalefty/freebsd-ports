@@ -20,7 +20,7 @@ case $2 in
         [ -e "$RSAKEYS" ] || %%PREFIX%%/bin/xrdp-keygen xrdp "$RSAKEYS"
         # generate self-signed certificate
         [ -e "$PRIVATEKEY" -a -e "$CERTIFICATE" ] || \
-            /usr/bin/openssl req \
+            %%OPENSSLBASE%%/bin/openssl req \
                  -x509 \
                  -newkey rsa:4096 \
                  -keyout "$PRIVATEKEY" \
