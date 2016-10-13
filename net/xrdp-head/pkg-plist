@@ -3,6 +3,12 @@ bin/xrdp-genkeymap
 bin/xrdp-keygen
 bin/xrdp-sesadmin
 bin/xrdp-sesrun
+bin/rfxcodectest
+lib/librfxencode.so
+lib/librfxencode.so.0.0.0
+lib/librfxencode.a
+lib/librfxencode.so.0
+include/rfxcodec_encode.h
 lib/pulse-%%PULSE_VERSION%%/modules/module-xrdp-sink.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-xrdp-source.so
 lib/xrdp/libcommon.a

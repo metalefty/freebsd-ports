@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20161004
+PORTVERSION=	0.9.0.b20161013
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-head
@@ -24,7 +24,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec
-GH_TAGNAME=	b24f8d8 3f137a6:librfxcodec
+GH_TAGNAME=	ee3a38f 845ee8c:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg --enable-rfxcodec
@@ -78,18 +78,26 @@ post-patch:
 		${WRKSRC}/sesman/chansrv/pulse/Makefile
 
 pre-configure:
-	@cd ${WRKSRC} && ./bootstrap
+	@cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ./bootstrap
+	# librfxcodec
+	@cd ${WRKSRC}/librfxcodec && ${SETENV} ${CONFIGURE_ENV} ./bootstrap
+
+post-configure:
+	# librfxcodec
+	@cd ${WRKSRC}/librfxcodec &&  ${SETENV} ${CONFIGURE_ENV} ./configure
 
 pre-build:
 	# librfxcodec should be built before xrdp
-	@cd ${WRKSRC}/librfxcodec/ && ${MAKE_CMD}
+	@cd ${WRKSRC}/librfxcodec/ && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS}
 
 post-build:
 	# build pulseaudio module
 	@${CP} -r "`${PULSE_WRKSRC}`" ${WRKDIR}
-	@cd ${WRKSRC} && ${MAKE_CMD} -C sesman/chansrv/pulse
+	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} -C sesman/chansrv/pulse
 
 post-install:
+	# librfxcodec
+	@cd ${WRKSRC}/librfxcodec/ && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install-strip
 	# install pulseaudio module
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
 .for f in module-xrdp-sink.so module-xrdp-source.so
