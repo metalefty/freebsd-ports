@@ -18,7 +18,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:build
 
 USES=		autoreconf:build jpeg libtool pkgconfig ssl
-USE_XORG=	ice sm x11 xfixes xrandr
+USE_XORG=	ice pixman sm x11 xfixes xrandr
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
@@ -27,7 +27,7 @@ GH_PROJECT=	xrdp librfxcodec:librfxcodec
 GH_TAGNAME=	ee3a38f 845ee8c:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
-		--enable-jpeg --enable-rfxcodec
+		--enable-jpeg --enable-pixman --enable-rfxcodec
 LDFLAGS+=	-L${LOCALBASE}/lib
 CPPFLAGS+=	-I${LOCALBASE}/include
 CONFLICTS=	xrdp-[0-9]*
