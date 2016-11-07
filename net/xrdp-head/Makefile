@@ -16,6 +16,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 # pulseaudio's built source is required for audio redirection
 BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:build
+RUN_DEPENDS=	lib/xorg/modules/libxorgxrdp.so:x11-drivers/xorgxrdp
 
 USES=		autoreconf:build jpeg libtool pkgconfig ssl
 USE_XORG=	ice pixman sm x11 xfixes xrandr
