@@ -29,7 +29,7 @@ GH_TAGNAME=	8da1829 845ee8c:librfxcodec
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg --enable-pixman --enable-rfxcodec
 LDFLAGS+=	-L${LOCALBASE}/lib
-CPPFLAGS+=	-I${LOCALBASE}/include
+CFLAGS+=	-I${LOCALBASE}/include
 CONFLICTS=	xrdp-[0-9]*
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-install pkg-message
