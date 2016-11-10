@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20160826
-#PORTREVISION=	0
+PORTVERSION=	0.9.0.b20161110
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-devel
@@ -17,29 +16,32 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 # pulseaudio's built source is required for audio redirection
 BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:build
+RUN_DEPENDS=	${LOCALBASE}/lib/xorg/modules/libxorgxrdp.so:x11-drivers/xorgxrdp
 
 USES=		autoreconf:build jpeg libtool pkgconfig ssl
-USE_XORG=	ice sm x11 xfixes xrandr
+USE_XORG=	ice pixman sm x11 xfixes xrandr
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec
-GH_TAGNAME=	8f747e3 3f137a6:librfxcodec
+GH_TAGNAME=	46e1173 845ee8c:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
-		--enable-jpeg --enable-rfxcodec
+		--enable-jpeg --enable-pixman --enable-rfxcodec
 LDFLAGS+=	-L${LOCALBASE}/lib
-CPPFLAGS+=	-I${LOCALBASE}/include
+CFLAGS+=	-I${LOCALBASE}/include
+CONFLICTS=	xrdp-[0-9]*
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-install pkg-message
+SUB_LIST=	OPENSSLBASE=${OPENSSLBASE}
 PLIST_SUB=	PULSE_VERSION=${PULSE_VERSION}
 
 OPTIONS_DEFINE=	DEBUG FUSE IPV6 MP3LAME OPUS
 OPTIONS_DEFAULT=	OPUS MP3LAME
-FUSE_DESC=	Drive redirection via FUSE
-MP3LAME_DESC=	Enable MP3 Lame audio codec
-OPUS_DESC=	Enable Opus audio codec
+FUSE_DESC=	Enable drive redirection via FUSE (experimental)
+MP3LAME_DESC=	Enable MP3 Lame for audio redirection
+OPUS_DESC=	Enable Opus for audio redirection
 
 IPV6_CONFIGURE_ENABLE=	ipv6
 DEBUG_CONFIGURE_ENABLE=	xrdpdebug
@@ -50,7 +52,7 @@ OPUS_CONFIGURE_ENABLE=	opus
 OPUS_LIB_DEPENDS=	libopus.so:audio/opus
 
 # don't forget to increase PORTREVISION after pulseaudio update
-PULSE_VERSION=	8.0
+PULSE_VERSION=	9.0
 PULSE_WRKSRC=	${MAKE} -C ${PORTSDIR}/audio/pulseaudio -VWRKSRC
 
 .include <bsd.port.options.mk>
@@ -77,18 +79,26 @@ post-patch:
 		${WRKSRC}/sesman/chansrv/pulse/Makefile
 
 pre-configure:
-	@cd ${WRKSRC} && ./bootstrap
+	@cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ./bootstrap
+	# librfxcodec
+	@cd ${WRKSRC}/librfxcodec && ${SETENV} ${CONFIGURE_ENV} ./bootstrap
+
+post-configure:
+	# librfxcodec
+	@cd ${WRKSRC}/librfxcodec &&  ${SETENV} ${CONFIGURE_ENV} ./configure
 
 pre-build:
 	# librfxcodec should be built before xrdp
-	@cd ${WRKSRC}/librfxcodec/ && ${MAKE_CMD}
+	@cd ${WRKSRC}/librfxcodec/ && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS}
 
 post-build:
 	# build pulseaudio module
 	@${CP} -r "`${PULSE_WRKSRC}`" ${WRKDIR}
-	@cd ${WRKSRC} && ${MAKE_CMD} -C sesman/chansrv/pulse
+	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} -C sesman/chansrv/pulse
 
 post-install:
+	# librfxcodec
+	@cd ${WRKSRC}/librfxcodec/ && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install-strip
 	# install pulseaudio module
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
 .for f in module-xrdp-sink.so module-xrdp-source.so
