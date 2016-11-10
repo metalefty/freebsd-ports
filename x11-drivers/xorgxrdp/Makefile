@@ -12,7 +12,6 @@ COMMENT=	X.Org driver enabling use through an RDP session with xrdp
 LICENSE=	MIT
 
 BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:x11-servers/xorg-server \
-		${LOCALBASE}/include/xrdp_constants.h:net/xrdp-devel \
 		nasm:devel/nasm
 
 USES=		autoreconf libtool:build pkgconfig
@@ -20,16 +19,21 @@ USE_XORG=	glproto inputproto presentproto randrproto renderproto resourceproto s
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
-GH_TAGNAME=	822e3b8
+GH_PROJECT=	xorgxrdp:xorgxrdp xrdp
+GH_TAGNAME=	822e3b8:xorgxrdp e28f529
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 
 CFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-I${LOCALBASE}/lib
+WRKSRC=		${WRKDIR}/xrdp-${GH_TAGNAME}/xorgxrdp
 
 OPTIONS_DEFINE=	DEBUG
 
 .include <bsd.port.options.mk>
+
+post-extract:
+	${CP} -a ${WRKSRC_xorgxrdp}/ ${WRKSRC}
 
 post-patch:
 .if ${PORT_OPTIONS:MDEBUG}
