@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20161110
+PORTVERSION=	0.9.0.b20161116
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-head
@@ -25,7 +25,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec
-GH_TAGNAME=	46e1173 845ee8c:librfxcodec
+GH_TAGNAME=	9deaa07 845ee8c:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg --enable-pixman --enable-rfxcodec
@@ -104,6 +104,8 @@ post-install:
 
 post-stage:
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/rsakeys.ini
+	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/cert.pem
+	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/key.pem
 .for f in sesman.ini startwm.sh xrdp.ini xrdp_keyboard.ini
 	@${MV} ${STAGEDIR}${PREFIX}/etc/xrdp/$f ${STAGEDIR}${PREFIX}/etc/xrdp/$f.sample
 .endfor
