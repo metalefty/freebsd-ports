@@ -14,6 +14,7 @@ include/xrdp_constants.h
 include/xrdp_rail.h
 lib/pulse-%%PULSE_VERSION%%/modules/module-xrdp-sink.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-xrdp-source.so
+lib/pkgconfig/xrdp.pc
 lib/xrdp/libcommon.a
 lib/xrdp/libcommon.so
 lib/xrdp/libcommon.so.0

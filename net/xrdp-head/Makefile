@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20161116
+PORTVERSION=	0.9.0.b20161121
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-head
@@ -25,7 +25,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec
-GH_TAGNAME=	9deaa07 845ee8c:librfxcodec
+GH_TAGNAME=	7cc1dd2 845ee8c:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg --enable-pixman --enable-rfxcodec
