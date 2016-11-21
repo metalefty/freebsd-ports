@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xorgxrdp
-PORTVERSION=	b20161115
+PORTVERSION=	b20161121
 CATEGORIES=	x11-drivers
 DIST_SUBDIR=	xrdp
 
@@ -19,23 +19,22 @@ USE_XORG=	glproto inputproto presentproto randrproto renderproto resourceproto s
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
-GH_PROJECT=	xorgxrdp:xorgxrdp xrdp
-GH_TAGNAME=	1a14839:xorgxrdp 46e1173
+GH_PROJECT=	xorgxrdp xrdp:xrdp
+GH_TAGNAME=	52319ec 7cc1dd2:xrdp
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 
 CFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-I${LOCALBASE}/lib
-WRKSRC=		${WRKDIR}/xrdp-${GH_TAGNAME}/xorgxrdp
+CONFIGURE_ENV+=	PKG_CONFIG_PATH=${WRKSRC_xrdp}/pkgconfig
 
 OPTIONS_DEFINE=	DEBUG
 
 .include <bsd.port.options.mk>
 
-post-extract:
-	${CP} -a ${WRKSRC_xorgxrdp}/ ${WRKSRC}
-
 post-patch:
+	${REINPLACE_CMD} -e 's|@VERSION@|0.9.0|g' -e "s|@abs_top_srcdir|${WRKSRC_xrdp}|g" \
+	${WRKSRC_xrdp}/pkgconfig/xrdp-uninstalled.pc.in >> ${WRKSRC_xrdp}/pkgconfig/xrdp-uninstalled.pc
 .if ${PORT_OPTIONS:MDEBUG}
 	${FIND} ${WRKSRC} -type f | ${XARGS} ${REINPLACE_CMD} -e 's|#define LOG_LEVEL [0-9]*|#define LOG_LEVEL 20|'
 .endif
