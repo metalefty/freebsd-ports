@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20161121
+PORTVERSION=	0.9.0.b20161130
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-head
@@ -15,7 +15,7 @@ LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 # pulseaudio's built source is required for audio redirection
-BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:build
+BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:configure
 RUN_DEPENDS=	${LOCALBASE}/lib/xorg/modules/libxorgxrdp.so:x11-drivers/xorgxrdp
 
 USES=		autoreconf:build jpeg libtool pkgconfig ssl
@@ -25,7 +25,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec
-GH_TAGNAME=	7cc1dd2 845ee8c:librfxcodec
+GH_TAGNAME=	5fbcaf fb80d7d:librfxcodec
 
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--enable-jpeg --enable-pixman --enable-rfxcodec
