@@ -8,12 +8,15 @@ lib/librfxencode.so
 lib/librfxencode.so.0.0.0
 lib/librfxencode.a
 lib/librfxencode.so.0
+include/rfxcodec_common.h
+include/rfxcodec_decode.h
 include/rfxcodec_encode.h
 include/xrdp_client_info.h
 include/xrdp_constants.h
 include/xrdp_rail.h
 lib/pulse-%%PULSE_VERSION%%/modules/module-xrdp-sink.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-xrdp-source.so
+lib/pkgconfig/rfxcodec.pc
 lib/pkgconfig/xrdp.pc
 lib/xrdp/libcommon.a
 lib/xrdp/libcommon.so
@@ -67,9 +70,6 @@ etc/rc.d/xrdp
 %%ETCDIR%%/km-00000813.ini
 %%ETCDIR%%/km-00000816.ini
 %%ETCDIR%%/km-0000100c.ini
-%%ETCDIR%%/km-e0010411.ini
-%%ETCDIR%%/km-e0200411.ini
-%%ETCDIR%%/km-e0210411.ini
 %%ETCDIR%%/pulse/default.pa
 @postunexec if cmp -s %D/etc/xrdp/sesman.ini.sample %D/etc/xrdp/sesman.ini; then rm -f %D/etc/xrdp/sesman.ini; fi
 @postunexec if cmp -s %D/etc/xrdp/startwm.sh.sample %D/etc/xrdp/startwm.sh; then rm -f %D/etc/xrdp/startwm.sh; fi
