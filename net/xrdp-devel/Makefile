@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.0.b20161110
+PORTVERSION=	0.9.1
+DISTVERSIONPREFIX=	v
 PORTEPOCH=	1
 CATEGORIES=	net
 PKGNAMESUFFIX=	-devel
@@ -15,7 +16,8 @@ LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 # pulseaudio's built source is required for audio redirection
-BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:build
+BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:configure \
+		${LOCALBASE}/bin/nasm:devel/nasm
 RUN_DEPENDS=	${LOCALBASE}/lib/xorg/modules/libxorgxrdp.so:x11-drivers/xorgxrdp
 
 USES=		autoreconf:build jpeg libtool pkgconfig ssl
@@ -24,11 +26,12 @@ GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
-GH_PROJECT=	xrdp librfxcodec:librfxcodec
-GH_TAGNAME=	46e1173 845ee8c:librfxcodec
+GH_PROJECT=	xrdp librfxcodec:librfxcodec libpainter:libpainter
+GH_TAGNAME=	v0.1.0:librfxcodec v0.1.0:libpainter
 
 CONFIGURE_ARGS=	--localstatedir=/var \
-		--enable-jpeg --enable-pixman --enable-rfxcodec
+		--with-pkgconfigdir=${LOCALBASE}/libdata/pkgconfig \
+		--enable-jpeg --enable-pixman --enable-rfxcodec --enable-painter
 LDFLAGS+=	-L${LOCALBASE}/lib
 CFLAGS+=	-I${LOCALBASE}/include
 CONFLICTS=	xrdp-[0-9]*
@@ -64,12 +67,9 @@ USES+=	fuse
 post-extract:
 	# librfxcodec is provided as git submodule
 	@${CP} -r ${WRKSRC_librfxcodec}/ ${WRKSRC}/librfxcodec/
+	@${CP} -r ${WRKSRC_libpainter}/ ${WRKSRC}/libpainter/
 
 post-patch:
-	@${REINPLACE_CMD} \
-		-e "s|^security_layer=rdp|security_layer=tls|" \
-		-e "s|^autorun=xrdp1|autorun=Session manager|" \
-		${WRKSRC}/xrdp/xrdp.ini
 	@${REINPLACE_CMD} \
 		-e "s|^PULSE_SCRIPT=/etc/xrdp/pulse/default.pa|PULSE_SCRIPT=${PREFIX}/etc/xrdp/pulse/default.pa|" \
 		${WRKSRC}/sesman/sesman.ini
@@ -80,16 +80,6 @@ post-patch:
 
 pre-configure:
 	@cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ./bootstrap
-	# librfxcodec
-	@cd ${WRKSRC}/librfxcodec && ${SETENV} ${CONFIGURE_ENV} ./bootstrap
-
-post-configure:
-	# librfxcodec
-	@cd ${WRKSRC}/librfxcodec &&  ${SETENV} ${CONFIGURE_ENV} ./configure
-
-pre-build:
-	# librfxcodec should be built before xrdp
-	@cd ${WRKSRC}/librfxcodec/ && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS}
 
 post-build:
 	# build pulseaudio module
@@ -97,8 +87,6 @@ post-build:
 	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} -C sesman/chansrv/pulse
 
 post-install:
-	# librfxcodec
-	@cd ${WRKSRC}/librfxcodec/ && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install-strip
 	# install pulseaudio module
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
 .for f in module-xrdp-sink.so module-xrdp-source.so
@@ -108,6 +96,8 @@ post-install:
 
 post-stage:
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/rsakeys.ini
+	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/cert.pem
+	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/key.pem
 .for f in sesman.ini startwm.sh xrdp.ini xrdp_keyboard.ini
 	@${MV} ${STAGEDIR}${PREFIX}/etc/xrdp/$f ${STAGEDIR}${PREFIX}/etc/xrdp/$f.sample
 .endfor
