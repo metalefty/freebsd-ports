@@ -32,8 +32,8 @@ GH_TAGNAME=	v0.1.0:librfxcodec v0.1.0:libpainter
 CONFIGURE_ARGS=	--localstatedir=/var \
 		--with-pkgconfigdir=${LOCALBASE}/libdata/pkgconfig \
 		--enable-jpeg --enable-pixman --enable-rfxcodec --enable-painter
-LDFLAGS+=	-L${LOCALBASE}/lib
-CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib -L${OPENSSLLIB} -lssl
+CFLAGS+=	-I${LOCALBASE}/include -L${OPENSSLINC}
 CONFLICTS=	xrdp-[0-9]*
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-install pkg-message
