@@ -38,7 +38,6 @@ CONFLICTS=	xrdp-[0-9]*
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-install pkg-message
 SUB_LIST=	OPENSSLBASE=${OPENSSLBASE}
-PLIST_SUB=	PULSE_VERSION=${PULSE_VERSION}
 
 OPTIONS_DEFINE=	DEBUG FUSE IPV6 MP3LAME OPUS
 OPTIONS_DEFAULT=	OPUS MP3LAME
@@ -55,7 +54,7 @@ OPUS_CONFIGURE_ENABLE=	opus
 OPUS_LIB_DEPENDS=	libopus.so:audio/opus
 
 # don't forget to increase PORTREVISION after pulseaudio update
-PULSE_VERSION=	9.0
+PULSE_VERSION=	${MAKE} -C ${PORTSDIR}/audio/pulseaudio -VPORTVERSION
 PULSE_WRKSRC=	${MAKE} -C ${PORTSDIR}/audio/pulseaudio -VWRKSRC
 
 .include <bsd.port.options.mk>
@@ -88,11 +87,13 @@ post-build:
 
 post-install:
 	# install pulseaudio module
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
+	${MKDIR} "${STAGEDIR}${PREFIX}/lib/pulse-`${PULSE_VERSION}`/modules/"
 .for f in module-xrdp-sink.so module-xrdp-source.so
 	${INSTALL_LIB} -m 0755 ${WRKSRC}/sesman/chansrv/pulse/$f \
-		${STAGEDIR}${PREFIX}/lib/pulse-${PULSE_VERSION}/modules/
+		"${STAGEDIR}${PREFIX}/lib/pulse-`${PULSE_VERSION}`/modules/"
 .endfor
+	# substitute pkg-plist not using PLIST_SUB
+	${REINPLACE_CMD} -e "s|%%PULSE_VERSION%%|`${PULSE_VERSION}`|g" ${TMPPLIST}
 
 post-stage:
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/rsakeys.ini
