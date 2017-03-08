@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mikutter
-PORTVERSION=	3.5.1
+PORTVERSION=	3.5.3
 CATEGORIES=	net-im ruby
 MASTER_SITES=	http://mikutter.hachune.net/bin/ \
 		LOCAL/tota/${PORTNAME}
