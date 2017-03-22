@@ -85,11 +85,9 @@ man/man8/xrdp-keygen.8.gz
 man/man8/xrdp-sesadmin.8.gz
 man/man8/xrdp-sesman.8.gz
 man/man8/xrdp-sesrun.8.gz
-man/man8/xrdp-sessvc.8.gz
 sbin/xrdp
 sbin/xrdp-chansrv
 sbin/xrdp-sesman
-sbin/xrdp-sessvc
 %%DATADIR%%/ad24b.bmp
 %%DATADIR%%/ad256.bmp
 %%DATADIR%%/cursor0.cur

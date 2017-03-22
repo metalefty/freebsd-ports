@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.2.b20170304
+PORTVERSION=	0.9.2.b20170322
 DISTVERSIONPREFIX=	v
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -27,7 +27,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec libpainter:libpainter
-GH_TAGNAME=	30a7a94 fbba97a:librfxcodec 898058c:libpainter
+GH_TAGNAME=	43899b7 fbba97a:librfxcodec 898058c:libpainter
 
 CONFIGURE_ARGS=	--localstatedir=/var --enable-strict-locations \
 		--with-pkgconfigdir=${LOCALBASE}/libdata/pkgconfig \
@@ -75,6 +75,7 @@ post-patch:
 	@${REINPLACE_CMD} \
 		-e "s|^PULSE_DIR = .*|PULSE_DIR = `${PULSE_WRKSRC}`|" \
 		-e "s|-Wall -O2|-Wall -O2 -I${LOCALBASE}/include|" \
+		-e '6s|$$| -DXRDP_SOCKET_PATH=\\"/tmp/.xrdp\\"|' \
 		${WRKSRC}/sesman/chansrv/pulse/Makefile
 
 pre-configure:
