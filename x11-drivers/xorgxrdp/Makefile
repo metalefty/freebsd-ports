@@ -12,11 +12,12 @@ COMMENT=	X.Org driver enabling use through an RDP session with xrdp
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:x11-servers/xorg-server \
-		nasm:devel/nasm
+BUILD_DEPENDS=	nasm:devel/nasm
 
 USES=		autoreconf libtool:build pkgconfig
-USE_XORG=	glproto inputproto presentproto randrproto renderproto resourceproto scrnsaverproto xf86driproto
+USE_XORG=	dri2proto dri3proto glproto inputproto presentproto randrproto \
+		renderproto resourceproto scrnsaverproto xf86driproto xineramaproto \
+		xorg-server
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
