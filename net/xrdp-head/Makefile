@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.2.b20170322
+PORTVERSION=	0.9.2.b20170328
 DISTVERSIONPREFIX=	v
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -27,7 +27,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec libpainter:libpainter
-GH_TAGNAME=	43899b7 fbba97a:librfxcodec 898058c:libpainter
+GH_TAGNAME=	148afd1 2d24fce:librfxcodec 4eb8c08:libpainter
 
 CONFIGURE_ARGS=	--localstatedir=/var --enable-strict-locations \
 		--with-pkgconfigdir=${LOCALBASE}/libdata/pkgconfig \
