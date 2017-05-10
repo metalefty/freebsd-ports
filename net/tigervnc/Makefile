@@ -3,8 +3,8 @@
 
 PORTNAME=	tigervnc
 PORTVERSION=	1.7.1
-DISTVERSIONPREFIX=	v
 PORTREVISION=	1
+DISTVERSIONPREFIX=	v
 CATEGORIES=	net x11-servers
 
 MAINTAINER=	meta+ports@vmeta.jp
@@ -26,7 +26,7 @@ CONFLICTS=	tigervnc-devel-[0-9]* \
 		tridiavnc-[0-9]* \
 		vnc-[0-9]*
 
-USES=		autoreconf:build cmake cpe gmake iconv jpeg libtool pkgconfig \
+USES=		autoreconf:build cmake cpe iconv jpeg libtool pkgconfig \
 		python ssl
 USE_GL=		gl
 USE_LDCONFIG=	yes
@@ -114,7 +114,7 @@ CONFIGURE_ARGS+=	\
 
 .include <bsd.port.pre.mk>
 
-TIGERVNC_XORG_PATCH_VER=	117
+TIGERVNC_XORG_PATCH_VER=	118
 
 # import from x11-server/xorg-server/Makefile
 .if ${SSL_DEFAULT} == base

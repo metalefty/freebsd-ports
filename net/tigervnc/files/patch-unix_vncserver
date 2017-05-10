@@ -1,6 +1,6 @@
---- unix/vncserver.orig	2016-10-04 13:33:57.420501000 +0900
-+++ unix/vncserver	2016-10-04 13:18:49.398064000 +0900
-@@ -240,7 +240,13 @@
+--- unix/vncserver.orig	2016-09-08 10:31:18 UTC
++++ unix/vncserver
+@@ -240,7 +240,13 @@ unlink($desktopLog);
  
  # Make an X server cookie and set up the Xauthority file
  
@@ -14,7 +14,7 @@
  
  open(XAUTH, "|xauth -f $xauthorityFile source -");
  print XAUTH "add $host:$displayNumber . $cookie\n";
-@@ -470,7 +476,7 @@
+@@ -470,7 +476,7 @@ sub CheckDisplayNumber
  
      socket(S, $AF_INET, $SOCK_STREAM, 0) || die "$prog: socket failed: $!\n";
      eval 'setsockopt(S, &SOL_SOCKET, &SO_REUSEADDR, pack("l", 1))';
@@ -23,7 +23,7 @@
  	close(S);
  	return 0;
      }
-@@ -478,7 +484,7 @@
+@@ -478,7 +484,7 @@ sub CheckDisplayNumber
  
      socket(S, $AF_INET, $SOCK_STREAM, 0) || die "$prog: socket failed: $!\n";
      eval 'setsockopt(S, &SOL_SOCKET, &SO_REUSEADDR, pack("l", 1))';
@@ -32,7 +32,7 @@
  	close(S);
  	return 0;
      }
-@@ -778,7 +784,7 @@
+@@ -778,7 +784,7 @@ sub SanityCheck
      #
  
   cmd:
