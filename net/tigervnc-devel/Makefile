@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	tigervnc
-PORTVERSION=	1.6.90
-PORTREVISION=	2
+PORTVERSION=	1.7.90
 DISTVERSIONPREFIX=	v
 CATEGORIES=	net x11-servers
 PKGNAMESUFFIX=	-devel
@@ -27,7 +26,7 @@ CONFLICTS=	tigervnc-[0-9]* \
 		tridiavnc-[0-9]* \
 		vnc-[0-9]*
 
-USES=		autoreconf:build cmake cpe gmake iconv jpeg libtool pkgconfig \
+USES=		autoreconf:build cmake cpe iconv jpeg libtool pkgconfig \
 		python ssl
 USE_GL=		gl
 USE_LDCONFIG=	yes
@@ -45,8 +44,6 @@ LIB_DEPENDS=	libunwind.so:devel/libunwind \
 		libfontconfig.so:x11-fonts/fontconfig
 
 CFLAGS+=	-fPIC
-
-IGNORE=		No development version available right now. Please use net/tigervnc instead.
 
 OPTIONS_DEFINE=		GNUTLS NLS PAM VIEWER DOCS
 OPTIONS_DEFAULT=	GNUTLS PAM VIEWER
@@ -112,11 +109,12 @@ CONFIGURE_ARGS+=	\
 		--with-xkb-bin-directory=${LOCALBASE}/bin \
 		--with-serverconfig-path=${LOCALBASE}/lib/X11 \
 		--disable-selective-werror \
+		--disable-xwayland \
 		--with-fontrootdir=${LOCALBASE}/share/fonts
 
 .include <bsd.port.pre.mk>
 
-TIGERVNC_XORG_PATCH_VER=	117
+TIGERVNC_XORG_PATCH_VER=	118
 
 # import from x11-server/xorg-server/Makefile
 .if ${SSL_DEFAULT} == base
