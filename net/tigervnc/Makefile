@@ -17,6 +17,9 @@ BUILD_DEPENDS=	${LOCALBASE}/include/GL/internal/dri_interface.h:graphics/mesa-dr
 		${LOCALBASE}/libdata/pkgconfig/fontutil.pc:x11-fonts/font-util \
 		${LOCALBASE}/include/FL/Fl.H:x11-toolkits/fltk \
 		bash:shells/bash
+LIB_DEPENDS=	libunwind.so:devel/libunwind \
+		libxshmfence.so:x11/libxshmfence \
+		libfontconfig.so:x11-fonts/fontconfig
 # almost equivalent to x11-servers/xorg-server's
 RUN_DEPENDS=	${LOCALBASE}/share/X11/xkb/rules/base:x11/xkeyboard-config \
 		xkbcomp:x11/xkbcomp
@@ -37,10 +40,6 @@ USE_XORG+=	bigreqsproto compositeproto damageproto fixesproto fontsproto glproto
 		resourceproto scrnsaverproto sm videoproto x11 xau xcmiscproto xdamage \
 		xdmcp xext xextproto xfont xkbfile xorg-macros xproto xrandr xrender \
 		xtrans xtst
-
-LIB_DEPENDS=	libunwind.so:devel/libunwind \
-		libxshmfence.so:x11/libxshmfence \
-		libfontconfig.so:x11-fonts/fontconfig
 
 CFLAGS+=	-fPIC
 
