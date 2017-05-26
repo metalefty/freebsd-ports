@@ -2,8 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	tigervnc
-PORTVERSION=	1.7.1
-PORTREVISION=	2
+PORTVERSION=	1.8.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	net x11-servers
 
@@ -16,6 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENCE.TXT
 PATCH_DEPENDS=	${NONEXISTENT}:x11-servers/xorg-server:patch
 BUILD_DEPENDS=	${LOCALBASE}/include/GL/internal/dri_interface.h:graphics/mesa-dri \
 		${LOCALBASE}/libdata/pkgconfig/fontutil.pc:x11-fonts/font-util \
+		${LOCALBASE}/include/FL/Fl.H:x11-toolkits/fltk \
 		bash:shells/bash
 # almost equivalent to x11-servers/xorg-server's
 RUN_DEPENDS=	${LOCALBASE}/share/X11/xkb/rules/base:x11/xkeyboard-config \
@@ -23,8 +23,7 @@ RUN_DEPENDS=	${LOCALBASE}/share/X11/xkb/rules/base:x11/xkeyboard-config \
 
 CONFLICTS=	tigervnc-devel-[0-9]* \
 		tightvnc-[0-9]* \
-		tridiavnc-[0-9]* \
-		vnc-[0-9]*
+		tridiavnc-[0-9]*
 
 USES=		autoreconf:build cmake cpe iconv jpeg libtool pkgconfig \
 		python ssl
