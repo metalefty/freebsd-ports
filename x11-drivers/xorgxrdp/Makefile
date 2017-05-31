@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xorgxrdp
-PORTVERSION=	0.2.0
+PORTVERSION=	0.2.1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	x11-drivers
 DIST_SUBDIR=	xrdp
@@ -12,16 +12,18 @@ COMMENT=	X.Org driver enabling use through an RDP session with xrdp
 
 LICENSE=	MIT
 
-BUILD_DEPENDS=	${LOCALBASE}/include/xorg/xorg-server.h:x11-servers/xorg-server \
-		nasm:devel/nasm
+RUN_DEPENDS=	xauth:x11/xauth
+BUILD_DEPENDS=	nasm:devel/nasm
 
 USES=		autoreconf libtool:build pkgconfig
-USE_XORG=	glproto inputproto presentproto randrproto renderproto resourceproto scrnsaverproto xf86driproto
+USE_XORG=	dri2proto dri3proto glproto inputproto presentproto randrproto \
+		renderproto resourceproto scrnsaverproto xf86driproto xineramaproto \
+		xorg-server
 USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp:xrdp
-GH_TAGNAME=	7cc1dd2:xrdp
+GH_TAGNAME=	v0.9.2:xrdp
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 
