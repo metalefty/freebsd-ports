@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.3.b20170523
+PORTVERSION=	0.9.3.b20170620
 DISTVERSIONPREFIX=	v
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -27,7 +27,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec libpainter:libpainter
-GH_TAGNAME=	67aab0a d58093a:librfxcodec 4eb8c08:libpainter
+GH_TAGNAME=	5def059 d58093a:librfxcodec 4eb8c08:libpainter
 
 CONFIGURE_ARGS=	--localstatedir=/var --enable-strict-locations \
 		--with-pkgconfigdir=${LOCALBASE}/libdata/pkgconfig \
@@ -99,7 +99,7 @@ post-stage:
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/rsakeys.ini
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/cert.pem
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/key.pem
-.for f in sesman.ini startwm.sh xrdp.ini xrdp_keyboard.ini
+.for f in sesman.ini startwm.sh reconnectwm.sh xrdp.ini xrdp_keyboard.ini
 	@${MV} ${STAGEDIR}${PREFIX}/etc/xrdp/$f ${STAGEDIR}${PREFIX}/etc/xrdp/$f.sample
 .endfor
 
