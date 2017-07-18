@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xrdp
-PORTVERSION=	0.9.2
+PORTVERSION=	0.9.3
 DISTVERSIONPREFIX=	v
 PORTEPOCH=	1
 CATEGORIES=	net
@@ -27,7 +27,7 @@ USE_LDCONFIG=	${PREFIX}/lib/xrdp
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp librfxcodec:librfxcodec libpainter:libpainter
-GH_TAGNAME=	v0.1.1:librfxcodec v0.1.1:libpainter
+GH_TAGNAME=	v0.9.3 v0.1.2:librfxcodec v0.1.1:libpainter
 
 CONFIGURE_ARGS=	--localstatedir=/var --enable-strict-locations \
 		--with-pkgconfigdir=${LOCALBASE}/libdata/pkgconfig \
@@ -75,7 +75,6 @@ post-patch:
 	@${REINPLACE_CMD} \
 		-e "s|^PULSE_DIR = .*|PULSE_DIR = `${PULSE_WRKSRC}`|" \
 		-e "s|-Wall -O2|-Wall -O2 -I${LOCALBASE}/include|" \
-		-e '6s|$$| -DXRDP_SOCKET_PATH=\\"/tmp/.xrdp\\"|' \
 		${WRKSRC}/sesman/chansrv/pulse/Makefile
 
 pre-configure:
@@ -100,7 +99,7 @@ post-stage:
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/rsakeys.ini
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/cert.pem
 	@${RM} ${STAGEDIR}${PREFIX}/etc/xrdp/key.pem
-.for f in sesman.ini startwm.sh xrdp.ini xrdp_keyboard.ini
+.for f in sesman.ini startwm.sh reconnectwm.sh xrdp.ini xrdp_keyboard.ini
 	@${MV} ${STAGEDIR}${PREFIX}/etc/xrdp/$f ${STAGEDIR}${PREFIX}/etc/xrdp/$f.sample
 .endfor
 
