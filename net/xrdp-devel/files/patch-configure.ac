@@ -1,8 +1,6 @@
-diff --git configure.ac configure.ac
-index 68620e13..19737bb2 100644
---- configure.ac
+--- configure.ac.orig	2017-07-14 12:22:02 UTC
 +++ configure.ac
-@@ -146,11 +146,35 @@ AC_CHECK_FUNC(dlopen, [],
+@@ -152,11 +152,35 @@ AC_CHECK_FUNC(dlopen, [],
  AC_SUBST(DLOPEN_LIBS)
  
  # checking for openssl
