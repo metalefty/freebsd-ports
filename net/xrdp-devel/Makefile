@@ -57,8 +57,6 @@ OPUS_LIB_DEPENDS=	libopus.so:audio/opus
 PULSE_VERSION=	${MAKE} -C ${PORTSDIR}/audio/pulseaudio -VPORTVERSION
 PULSE_WRKSRC=	${MAKE} -C ${PORTSDIR}/audio/pulseaudio -VWRKSRC
 
-.include <bsd.port.options.mk>
-
 post-extract:
 	# librfxcodec is provided as git submodule
 	@${CP} -r ${WRKSRC_librfxcodec}/ ${WRKSRC}/librfxcodec/
