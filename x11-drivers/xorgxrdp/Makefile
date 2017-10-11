@@ -23,7 +23,7 @@ USE_LDCONFIG=	yes
 USE_GITHUB=	yes
 GH_ACCOUNT=	neutrinolabs
 GH_PROJECT=	xrdp:xrdp
-GH_TAGNAME=	v0.9.3:xrdp
+GH_TAGNAME=	v0.9.4:xrdp
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
 
