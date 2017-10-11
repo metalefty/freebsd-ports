@@ -20,7 +20,7 @@ BUILD_DEPENDS=	${NONEXISTENT}:audio/pulseaudio:configure \
 		${LOCALBASE}/bin/nasm:devel/nasm
 RUN_DEPENDS=	${LOCALBASE}/lib/xorg/modules/libxorgxrdp.so:x11-drivers/xorgxrdp
 
-USES=		autoreconf:build jpeg libtool localbase pkgconfig ssl
+USES=		autoreconf:build jpeg libtool pkgconfig ssl
 USE_XORG=	ice pixman sm x11 xfixes xrandr
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/lib/xrdp
@@ -32,7 +32,8 @@ GH_TAGNAME=	v0.1.2:librfxcodec v0.1.1:libpainter
 CONFIGURE_ARGS=	--localstatedir=/var --enable-strict-locations \
 		--with-pkgconfigdir=${LOCALBASE}/libdata/pkgconfig \
 		--enable-jpeg --enable-pixman --enable-rfxcodec --enable-painter
-LDFLAGS+=	-lssl
+LDFLAGS+=	-L${LOCALBASE}/lib -L${OPENSSLLIB} -lssl
+CFLAGS+=	-I${LOCALBASE}/include -L${OPENSSLINC}
 CONFLICTS=	xrdp-[0-9]*
 INSTALL_TARGET=	install-strip
 SUB_FILES=	pkg-install pkg-message
