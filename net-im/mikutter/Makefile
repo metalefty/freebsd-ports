@@ -34,7 +34,7 @@ RUN_DEPENDS=	rubygem-gtk2>=3.1.8:x11-toolkits/rubygem-gtk2 \
 		rubygem-ruby-hmac>=0.4.0:security/rubygem-ruby-hmac \
 		rubygem-text>=1.3.1:textproc/rubygem-text \
 		rubygem-totoridipjp>=0.1.0:www/rubygem-totoridipjp \
-		rubygem-twitter-text>=1.14.5:textproc/rubygem-twitter-text \
+		rubygem-twitter-text>=2.1.0:textproc/rubygem-twitter-text \
 		rubygem-typed-array>=0.1.2:devel/rubygem-typed-array \
 		rubygem-unf>=0.1.4:textproc/rubygem-unf
 
