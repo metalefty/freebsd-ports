@@ -18,7 +18,7 @@
  TESTSRC	= smtpd_token_test.c
  DEFS	= -I. -I$(INC_DIR) -D$(SYSTYPE)
  CFLAGS	= $(DEBUG) $(OPT) $(DEFS)
---- src/smtpd/pfilter.c.orig	2018-02-04 15:36:49 UTC
+--- src/smtpd/pfilter.c.orig	2018-02-14 04:29:19 UTC
 +++ src/smtpd/pfilter.c
 @@ -0,0 +1,19 @@
 +#include "pfilter.h"
@@ -40,7 +40,7 @@
 +		blstate = NULL;
 +	}
 +}
---- src/smtpd/pfilter.h.orig	2018-02-04 15:36:49 UTC
+--- src/smtpd/pfilter.h.orig	2018-02-14 04:29:19 UTC
 +++ src/smtpd/pfilter.h
 @@ -0,0 +1 @@
 +void pfilter_notify(int, int);
